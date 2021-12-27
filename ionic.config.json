@@ -1,0 +1,7 @@
+{
+  "name": "Gratify Chat",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
