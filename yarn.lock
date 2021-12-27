@@ -1688,7 +1688,7 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@ionic/angular-toolkit@^5.0.0":
+"@ionic/angular-toolkit@^5.0.3":
   version "5.0.3"
   resolved "https://registry.yarnpkg.com/@ionic/angular-toolkit/-/angular-toolkit-5.0.3.tgz#9521246db4e5f1628a8e89a4c7af8f8fbcd6ec89"
   integrity sha512-xHVvB0FPkvzQ52B74EN8g0IhMj+rPl7oAMAd89P0ajlV3bvRfFyDimgx7HJDhl99qf9a7EhxjB65Yf6M/b1tnw==
@@ -1705,7 +1705,7 @@
     tslib "^2.0.3"
     ws "^7.0.1"
 
-"@ionic/angular@^6.0.0":
+"@ionic/angular@^6.0.1":
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/@ionic/angular/-/angular-6.0.1.tgz#b0c1023c1ea9d52e0ded9d631fe2dd4c3ebb2270"
   integrity sha512-+5YhwSBLOjc78Q/KDFGmv0lNpLLgbz9coYq7RHiUQYXJAXFSdk3prj/cXGXj+Vksn6h3GW7FqVB5EOgRf/4onQ==
