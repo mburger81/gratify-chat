@@ -11,6 +11,7 @@ import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideMessaging,getMessaging } from '@angular/fire/messaging';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
     declarations: [
@@ -31,7 +32,13 @@ import { provideMessaging,getMessaging } from '@angular/fire/messaging';
         ),
         provideMessaging(
             () => getMessaging()
-        )
+        ),
+        ServiceWorkerModule.register('ngsw-worker.js', {
+          enabled: environment.production,
+          // Register the ServiceWorker as soon as the app is stable
+          // or after 30 seconds (whichever comes first).
+          registrationStrategy: 'registerWhenStable:30000'
+        })
     ],
     providers: [
         {
