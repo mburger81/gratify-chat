@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "gratify-chat-michi": {
+      "hosting": {
+        "app": [
+          "gratify-chat-michi"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "gratify-chat-michi"
+  }
+}
