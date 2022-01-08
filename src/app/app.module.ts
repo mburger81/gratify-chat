@@ -12,6 +12,7 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideMessaging,getMessaging } from '@angular/fire/messaging';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { AuthService } from './shared/services/auth/auth.service';
 
 @NgModule({
     declarations: [
@@ -44,7 +45,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
         {
             provide: RouteReuseStrategy,
             useClass: IonicRouteStrategy
-        }
+        },
+        AuthService
     ],
     bootstrap: [
         AppComponent
