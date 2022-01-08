@@ -1,4 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
+import { Firestore, doc, setDoc } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 
 
@@ -16,8 +17,16 @@ export class AppComponent implements OnDestroy {
   private readonly userDisposable: Subscription | undefined;
 
 
-  constructor(private auth: AuthService) {
-    this.userDisposable = this.auth.user.subscribe((user) => this.user = user);
+  constructor(private auth: AuthService, private firestore: Firestore) {
+    this.userDisposable = this.auth.user.subscribe(
+                                          (user) => {
+                                            this.user = user;
+                                            if(user) {
+                                              const usersRef = doc(this.firestore, `users/${user.uid}`);
+                                              setDoc(usersRef, { uid: user.uid });
+                                            }
+                                          }
+                                        );
 
   }
   ngOnDestroy(): void {
