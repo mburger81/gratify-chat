@@ -35,7 +35,6 @@ export class AuthService implements OnDestroy {
                                 map(
                                   (u) => {
                                     this.user = u;
-                                    console.log('blub', u);
                                     return !!u
                                   }
                                 )

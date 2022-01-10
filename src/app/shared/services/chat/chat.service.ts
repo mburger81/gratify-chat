@@ -45,24 +45,11 @@ export class ChatService {
                     ),
                     map(
                      (messages) => {
-                        // const user = await this.auth.getUser();
-
-                        // this.auth.getUser()
-                        //             .then(
-                        //               (user) => {
-                                        // Get the real name for each user
-                                        for (let m of messages) {
-                                          m.fromName = this.getUserForMsg(m.from, users);
-                                          m.myMsg = this.auth.getUser().uid === m.from;
-                                        }
-                                        return messages;
-                        //               }
-                        //             )
-                        //             .catch(
-                        //               (error) => { return []; }
-                        //             );
-
-                        // return [];
+                        for (let m of messages) {
+                          m.fromName = this.getUserForMsg(m.from, users);
+                          m.myMsg = this.auth.getUser().uid === m.from;
+                        }
+                        return messages;
                       }
                     )
                   );
