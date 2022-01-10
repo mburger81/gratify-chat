@@ -5,6 +5,7 @@ import { Observable, Subject } from 'rxjs';
 
 // custom imports
 import { ChatService } from '../../shared/services/chat/chat.service';
+import { ContractService } from '../../shared/services/chat/contract.service';
 
 
 @Component({
@@ -19,12 +20,17 @@ export class ChatComponent implements AfterViewInit, OnDestroy, OnInit {
 
   messages: Observable<any[]>;
   newMsg = '';
+  address: string;
 
   private onScreenKeyboard = false;
   private keyboardSubscription: Subject<void>;
 
 
-  constructor(private chatService: ChatService, private platform: Platform) {
+  constructor(
+      private contractService: ContractService,
+      private chatService: ChatService,
+      private platform: Platform
+  ) {
     this.keyboardSubscription =
           this.platform
                 .keyboardDidShow
@@ -73,4 +79,23 @@ export class ChatComponent implements AfterViewInit, OnDestroy, OnInit {
       this.ionTextarea.setFocus().then(() => {});
     });
   }
+
+  openMetamask() {
+    this.contractService
+          .openMetamask()
+            .then(
+              (address) => {
+                // console.log(address);
+                this.address = address;
+              }
+            )
+            .catch(
+              (error) => {
+                console.log('cccccccccc');
+                console.log(error);
+                this.address = null;
+                console.log('dddddddddd');
+              }
+            )
+  };
 }

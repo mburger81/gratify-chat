@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 // custom impots
 import { ChatComponentRoutingModule } from './chat-routing.module';
 import { ChatComponent } from './chat.component';
+import { ContractService } from '../../shared/services/chat/contract.service';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ChatComponent } from './chat.component';
     ChatComponent
   ],
   providers: [
-    AngularFirestore
+    AngularFirestore,
+    ContractService
   ]
 })
 export class ChatComponentModule {}

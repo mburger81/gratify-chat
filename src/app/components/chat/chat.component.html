@@ -4,6 +4,12 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Gratify Chat</ion-title>
+    <ion-buttons slot="end" *ngIf="!address">
+      <ion-button (click)="openMetamask()">Metamask</ion-button>
+    </ion-buttons>
+    <ion-item slot="end" *ngIf="address">
+      {{ address }}
+    </ion-item>
   </ion-toolbar>
 </ion-header>
 
