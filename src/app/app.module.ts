@@ -13,6 +13,8 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideMessaging,getMessaging } from '@angular/fire/messaging';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AuthService } from './shared/services/auth/auth.service';
+import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireModule } from '@angular/fire/compat';
 
 @NgModule({
     declarations: [
@@ -25,6 +27,9 @@ import { AuthService } from './shared/services/auth/auth.service';
         provideFirebaseApp(
             () => initializeApp(environment.firebase)
         ),
+        AngularFireModule.initializeApp(environment.firebase),
+        // AngularFirestoreModule.enablePersistence(),
+        // AngularFireStorageModule,
         provideAuth(
             () => getAuth()
         ),
@@ -46,7 +51,8 @@ import { AuthService } from './shared/services/auth/auth.service';
             provide: RouteReuseStrategy,
             useClass: IonicRouteStrategy
         },
-        AuthService
+        AuthService,
+        AngularFirestore
     ],
     bootstrap: [
         AppComponent

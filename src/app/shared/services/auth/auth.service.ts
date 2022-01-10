@@ -13,8 +13,8 @@ import {
 } from '@angular/fire/auth';
 import { traceUntilFirst } from '@angular/fire/performance';
 import { Router } from '@angular/router';
-import { EMPTY, Observable, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { EMPTY, lastValueFrom, Observable, Subscription } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 
 @Injectable({
@@ -22,17 +22,25 @@ import { map } from 'rxjs/operators';
 })
 export class AuthService implements OnDestroy {
 
-  private readonly userDisposable: Subscription | undefined;
-  public readonly user: Observable<User | null> = EMPTY;
+  private readonly user$Disposable: Subscription | undefined;
+  public readonly user$: Observable<User | null> = EMPTY;
+  private user: User;
 
   constructor(private auth: Auth, private router: Router) {
     if (auth) {
-      this.user = authState(this.auth);
-      this.userDisposable = authState(this.auth)
+      this.user$ = authState(this.auth);
+      this.user$Disposable = authState(this.auth)
                               .pipe(
                                 traceUntilFirst('auth'),
-                                map(u => !!u)
-                              ).subscribe(
+                                map(
+                                  (u) => {
+                                    this.user = u;
+                                    console.log('blub', u);
+                                    return !!u
+                                  }
+                                )
+                              )
+                              .subscribe(
                                 (isLoggedIn) => {
                                   if (isLoggedIn) {
                                     this.router.navigate(['/chat']);
@@ -44,8 +52,8 @@ export class AuthService implements OnDestroy {
     }
   }
   ngOnDestroy(): void {
-    if (this.userDisposable) {
-      this.userDisposable.unsubscribe();
+    if (this.user$Disposable) {
+      this.user$Disposable.unsubscribe();
     }
   }
 
@@ -71,5 +79,9 @@ export class AuthService implements OnDestroy {
 
   logout() {
     return signOut(this.auth);
+  }
+
+  public getUser(): User {
+    return this.user;
   }
 }
