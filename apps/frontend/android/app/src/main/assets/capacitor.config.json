@@ -1,6 +1,6 @@
 {
 	"appId": "io.ionic.starter",
 	"appName": "Gratify Chat",
-	"webDir": "www",
+	"webDir": "../../dist/apps/frontend",
 	"bundledWebRuntime": false
 }
