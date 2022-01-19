@@ -308,58 +308,6 @@
       },
       "tags": [],
       "implicitDependencies": ["frontend"]
-    },
-    "ng-chat-api": {
-      "root": "apps/ng-chat-api",
-      "sourceRoot": "apps/ng-chat-api/src",
-      "projectType": "application",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/apps/ng-chat-api",
-            "main": "apps/ng-chat-api/src/main.ts",
-            "tsConfig": "apps/ng-chat-api/tsconfig.app.json",
-            "assets": ["apps/ng-chat-api/src/assets"]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/ng-chat-api/src/environments/environment.ts",
-                  "with": "apps/ng-chat-api/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "ng-chat-api:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
-          "options": {
-            "lintFilePatterns": ["apps/ng-chat-api/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/ng-chat-api"],
-          "options": {
-            "jestConfig": "apps/ng-chat-api/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "tags": []
     }
   }
 }
