@@ -1,56 +1,61 @@
-import { Component, OnDestroy } from '@angular/core';
-import { Firestore, collection, collectionData, doc, setDoc } from '@angular/fire/firestore';
-import { Observable, Subscription } from 'rxjs';
+/*
+* WhatsApp in Ionic 5 application  (https://github.com/habupagas/ionic-5-WhatsApp)
+* Copyright  @2020-present. All right reserved.
+* Author: Abubakar Pagas
+*/
+
+import { Component } from '@angular/core';
+// import { StatusService } from './services/status.service';
 
 
-// custom imports
-import { AuthService } from './shared/services/auth/auth.service';
-
+import { Platform } from '@ionic/angular';
+import { SplashScreen } from '@capacitor/splash-screen';
+import { StatusBar, Style } from '@capacitor/status-bar';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss'],
+  styleUrls: ['app.component.scss']
 })
-export class AppComponent implements OnDestroy {
-  user: any;
-  // users: any[];
-  private readonly user$Disposable: Subscription | undefined;
+export class AppComponent {
+  darkMode
 
-
-  constructor(private auth: AuthService, private firestore: Firestore) {
-    this.user$Disposable = this.auth.user$.subscribe(
-                                          (user) => {
-                                            this.user = user;
-                                            if(user) {
-                                              const userRef = doc(this.firestore, `users/${user.uid}`);
-                                              setDoc(userRef, { uid: user.uid, displayName: user.displayName });
-
-                                              // this.getUsers();
-                                            } else {
-                                              // this. users = null;
-                                            }
-                                          }
-                                        );
+  constructor(
+    private platform: Platform
+    // ,
+    // public statusService: StatusService
+  ) {
+    this.initializeApp();
+    this.darkMode = window.localStorage.getItem('dark');
 
   }
-  ngOnDestroy(): void {
-    if (this.user$Disposable) {
-      this.user$Disposable.unsubscribe();
+
+  initializeApp() {
+    this.platform.ready().then(() => {
+      this.checkDarkTheme()
+      SplashScreen.hide();
+      // this.statusService.offlineStatus();
+    });
+  }
+
+  checkDarkTheme() {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    if (prefersDark.matches) {
+      document.body.classList.toggle('dark');
+      if (Capacitor.isPluginAvailable('StatusBar')) {
+        StatusBar.setStyle({ style: Style.Dark });
+      }
+    } else if (this.darkMode) {
+      document.body.classList.toggle('dark');
+      if (Capacitor.isPluginAvailable('StatusBar')) {
+        StatusBar.setStyle({ style: Style.Dark });
+      }
+    } else {
+      if (Capacitor.isPluginAvailable('StatusBar')) {
+        StatusBar.setStyle({ style: Style.Light });
+        StatusBar.setBackgroundColor({'color': '#054D44'});
+      }
     }
   }
-
-  logout(event: MouseEvent) {
-    this.auth.logout();
-  }
-
-  // private getUsers() {
-  //   const usersRef = collection(this.firestore, 'users');
-  //   collectionData(usersRef, { })
-  //     .subscribe(
-  //       (users: any) => {
-  //         this.users = users;
-  //       }
-  //     );
-  // }
 }
