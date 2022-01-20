@@ -1,1 +1,4 @@
-<p>dashboard works!</p>
+<ion-content>
+    Hello <b>{{ authService.user?.displayName }}</b>
+    <ion-button (click)="logout()">Logout</ion-button>
+</ion-content>

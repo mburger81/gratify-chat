@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { AngularFireModule } from '@angular/fire/compat';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -23,6 +24,7 @@ import { environment } from '../environments/environment';
     provideFirebaseApp(
       () => initializeApp(environment.firebase)
     ),
+    AngularFireModule.initializeApp(environment.firebase),
     provideAuth(
       () => getAuth()
     )
