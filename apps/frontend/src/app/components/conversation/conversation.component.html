@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-item (click)="groupInfo()">
+      <ion-avatar slot="start">
+        <img src="{{image || img}}"/>
+      </ion-avatar>
+      <ion-label>{{ title }}</ion-label>
+    </ion-item>
+    <ion-buttons slot="primary">
+      <ion-button (click)="more($event)">
+        <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+<ion-content #IonContent id="chat-parent">
+  <div id="container">
+    <ion-grid>
+      <ion-row *ngFor="let message of messagesToShow; let i = index">
+        <ion-col size="9" class="message"
+          [offset]="message.myMsg ? 3 : 0"
+          [ngClass]="{ 'my-message': message.myMsg, 'other-message': !message.myMsg }">
+          <b>{{ message.name }}</b><br>
+          <span>{{ message.message }}
+          </span>
+          <div class="time ion-text-right"><br>{{ message.date | date:'short' }}</div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="light">
+    <ion-row class="ion-align-items-center">
+      <ion-col size="10">
+          <ion-textarea
+              class="message-input"
+              placeholder="Message"
+              autoGrow="true"
+              rows="1"
+              [(ngModel)]="message"
+              (keydown)="keydown($event)">
+          </ion-textarea>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button
+              expand="block"
+              fill="clear"
+              color="primary"
+              [disabled]="!message"
+              (click)="sendMessage()">
+          <ion-icon name="send" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

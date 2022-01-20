@@ -32,7 +32,8 @@ export class GroupListComponent implements OnInit {
 
   }
 
-  openChat(key) {
-    console.log('GroupListComponent#openChat; key:', key);
+  openConversation(key) {
+    // console.log('GroupListComponent#openChat; key:', key);
+    this.router.navigate(['/dashboard/conversation', { 'key': key }]);
   }
 }
