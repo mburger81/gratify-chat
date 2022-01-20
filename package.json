@@ -66,6 +66,7 @@
     "@ionic/angular-toolkit": "^5.0.3",
     "@nestjs/schematics": "^7.0.0",
     "@nestjs/testing": "^7.0.0",
+    "@nrwl/angular": "13.4.5",
     "@nrwl/cli": "13.4.5",
     "@nrwl/cypress": "13.4.5",
     "@nrwl/eslint-plugin-nx": "13.4.5",
