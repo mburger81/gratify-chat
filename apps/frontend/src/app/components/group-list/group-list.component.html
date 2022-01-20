@@ -1,10 +1,27 @@
-<ion-list>
-    <ion-item *ngFor="let group of groups" (click)="openChat(group.key)">
-        <ion-avatar slot="start">
-            <img src="{{ group.img }}" />
-        </ion-avatar>
-        <ion-label>
-            <h2>{{ group.name}}</h2>
-        </ion-label>
-    </ion-item>
-<ion-list>
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button>
+            <ion-icon slot="icon-only" name="menu"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-label><h2>Gratify Chat</h2></ion-label>
+      <ion-buttons slot="primary">
+        <ion-button>
+          <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+<ion-content>
+    <ion-list>
+        <ion-item *ngFor="let group of groups" (click)="openChat(group.key)">
+            <ion-avatar slot="start">
+                <img src="{{ group.img }}" />
+            </ion-avatar>
+            <ion-label>
+                <h2>{{ group.name}}</h2>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>
