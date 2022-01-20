@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  firebaseConfig: {
+  firebase: {
     apiKey: "AIzaSyDbM1AHrCDv3aJk-oNCFRVf5aqtsS82YWY",
     authDomain: "gratify-chat-michi.firebaseapp.com",
     databaseURL: "https://gratify-chat-michi-default-rtdb.firebaseio.com",
