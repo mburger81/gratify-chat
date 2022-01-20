@@ -17,9 +17,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-
-<ion-content #IonContent id="chat-parent">
+<ion-content #IonContent id="chat-parent" [fullscreen]="true">
   <div id="container">
     <ion-grid>
       <ion-row *ngFor="let message of messagesToShow; let i = index">
