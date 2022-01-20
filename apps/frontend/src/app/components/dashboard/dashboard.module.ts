@@ -6,7 +6,9 @@ import { IonicModule } from '@ionic/angular';
 // custom imports
 import { DashboardComponent } from './dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
+import { GroupListModule } from './../group-list/group-list.module';
 import { AuthService } from '../../shared/services/auth.service';
+import { PipesModule } from '../../pipes/pipes.module';
 
 
 @NgModule({
@@ -16,6 +18,8 @@ import { AuthService } from '../../shared/services/auth.service';
   imports: [
     CommonModule,
     IonicModule,
+    PipesModule,
+    GroupListModule,
     DashboardRoutingModule
   ],
   providers: [

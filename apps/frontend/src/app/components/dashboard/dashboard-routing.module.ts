@@ -9,7 +9,12 @@ import { DashboardComponent } from './dashboard.component';
 const routes: Routes = [
   {
     path: '',
-    component: DashboardComponent
+    redirectTo: 'groups',
+    pathMatch: 'full'
+  },
+  {
+    path: 'groups',
+    loadChildren: () => import('./../group-list/group-list.module').then( m => m.GroupListModule)
   }
 ];
 

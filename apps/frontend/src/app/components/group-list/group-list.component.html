@@ -1,0 +1,10 @@
+<ion-list>
+    <ion-item *ngFor="let group of groups" (click)="openChat(group.key)">
+        <ion-avatar slot="start">
+            <img src="{{ group.img }}" />
+        </ion-avatar>
+        <ion-label>
+            <h2>{{ group.name}}</h2>
+        </ion-label>
+    </ion-item>
+<ion-list>
