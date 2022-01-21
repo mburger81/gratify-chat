@@ -25,7 +25,11 @@
           [offset]="message.myMsg ? 3 : 0"
           [ngClass]="{ 'my-message': message.myMsg, 'other-message': !message.myMsg }">
           <b>{{ message.name }}</b><br>
-          <span>{{ message.message }}
+          <span *ngIf="message.type === 'image'">
+            <img class="url" src="{{message.message}}">
+          </span>
+          <span *ngIf="message.type === 'text'">
+            <span>{{ message.message }}</span>
           </span>
           <div class="time ion-text-right"><br>{{ message.date | date:'short' }}</div>
         </ion-col>
