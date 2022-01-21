@@ -22,7 +22,7 @@ import { DataService } from '../../shared/services/data.service';
 export class ConversationComponent implements OnInit {
   title: any;
   groupId: any;
-  message: any;
+  message = '';
   group: any;
 
   messagesToShow = [];
@@ -119,6 +119,9 @@ export class ConversationComponent implements OnInit {
         .read()
         .then(
           (result: ReadResult) => {
+            // console.log('ConversationComponent#keydown; result.type:', result.type);
+            // console.log('ConversationComponent#keydown; result.value:', result.value);
+
 
             if (result.type === 'text/plain') {
               this.message = this.message.concat(result.value);
