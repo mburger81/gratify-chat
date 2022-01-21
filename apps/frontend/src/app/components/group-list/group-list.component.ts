@@ -40,6 +40,11 @@ export class GroupListComponent implements OnInit {
     this.router.navigate(['/dashboard/conversation', { 'key': key }]);
   }
 
+  addGroup() {
+    console.log('GroupListComponent#addGroup;');
+    this.router.navigate(['/dashboard/new-group']);
+  }
+
   logout() {
     // console.log('GroupListComponent#logout;');
 

@@ -21,6 +21,10 @@ const routes: Routes = [
     loadChildren: () => import('./../group-info/group-info.module').then(m => m.GroupInfoModule)
   },
   {
+    path: 'new-group',
+    loadChildren: () => import('./../new-group/new-group.module').then(m => m.NewGroupModule)
+  },
+  {
     path: 'conversation',
     loadChildren: () => import('./../conversation/conversation.module').then( m => m.ConversationModule)
   }

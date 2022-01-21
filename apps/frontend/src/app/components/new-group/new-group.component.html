@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-label>
+          <h2>New Group</h2>
+      </ion-label>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-item>
+        <ion-avatar slot="start">
+            <img src="{{ group.img }}"/>
+        </ion-avatar>
+        <ion-input [(ngModel)]="group.name"></ion-input>
+        <!-- <ion-label>{{ title }}</ion-label> -->
+    </ion-item>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="newGroup()">
+        <ion-fab-button>
+          <ion-icon name="checkmark-sharp"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+  </ion-content>
