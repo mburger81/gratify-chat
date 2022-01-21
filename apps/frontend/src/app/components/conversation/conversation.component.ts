@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IonContent, Platform } from '@ionic/angular';
 import firebase from 'firebase/compat/app';
 import * as _ from 'lodash';
@@ -42,6 +42,7 @@ export class ConversationComponent implements OnInit {
     private actRoute: ActivatedRoute,
     private afDB: AngularFireDatabase,
     private platform: Platform,
+    private router: Router,
     // custom imports
     private authService: AuthService,
     private dataServices: DataService
@@ -172,7 +173,8 @@ export class ConversationComponent implements OnInit {
 
   // route to the group-info page alone with the groupId
   groupInfo() {
-   console.log('Conversation#component#groupInfo');
+  //  console.log('Conversation#component#groupInfo');
+   this.router.navigate(['/dashboard/group-info', { 'key': this.groupId }]);
   }
 
   more(ev: any) {
