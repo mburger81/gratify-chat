@@ -188,11 +188,11 @@ export class ConversationComponent implements OnInit {
                 resolve(true);
               })
             }
-          }).then(() => {
-          }).catch((err) => {
+          })
+          .then()
+          .catch((err) => {
             reject(err);
           })
-
         }
       });
     });
@@ -202,7 +202,8 @@ export class ConversationComponent implements OnInit {
     // console.log('ConversationComponent#sendPhoto;');
 
     const image = await Camera.getPhoto({
-      allowEditing: true,
+
+      allowEditing: false,
       resultType: CameraResultType.DataUrl
     });
 
