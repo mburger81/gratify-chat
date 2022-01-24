@@ -2930,6 +2930,11 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=
 
+"@robingenz/capacitor-firebase-authentication@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@robingenz/capacitor-firebase-authentication/-/capacitor-firebase-authentication-0.4.0.tgz#dbd68a7f49bbfb7317779afb5a7d70027a4a60bd"
+  integrity sha512-JoXvn9c9Ibs+ThBmDAYkeUTxkqEI5Pw0BB/RadDDdMqMcwwI56aLQ5sQrG5rGy09gnOgV74H3V/ddRoXMBymHw==
+
 "@schematics/angular@13.1.3":
   version "13.1.3"
   resolved "https://registry.yarnpkg.com/@schematics/angular/-/angular-13.1.3.tgz#c763cdf1a2e0784d5263c23b581bfeb4a4a2f12e"

@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Auth, User } from '@angular/fire/auth';
+import { Auth, User /*, user*/ } from '@angular/fire/auth';
 // import { Observable } from 'rxjs';
 // import { take } from 'rxjs/operators';
+
+
+// custom imports
+import { FirebaseAuthentication } from '@robingenz/capacitor-firebase-authentication';
 
 
 @Injectable({
@@ -12,6 +16,14 @@ export class AuthService {
 
 
   constructor(private auth: Auth) {
+
+    // user(auth)
+    //   .subscribe(
+    //     (user: User) => {
+    //       console.log('user', user);
+    //     }
+    //   );
+
   }
   // async init() {
   //   await this.user$.pipe(take(1));
