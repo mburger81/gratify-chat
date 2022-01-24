@@ -10,7 +10,10 @@
       <ion-label>{{ title }}</ion-label>
     </ion-item>
     <ion-buttons slot="primary">
-      <ion-button (click)="more($event)">
+      <ion-button (click)="call()">
+        <ion-icon slot="icon-only" name="chatbubbles-sharp"></ion-icon>
+      </ion-button>
+      <ion-button (click)="more()">
         <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
       </ion-button>
     </ion-buttons>

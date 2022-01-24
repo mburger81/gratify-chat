@@ -10,7 +10,11 @@ const routes: Routes = [
   {
     path: '',
     component: ConversationComponent
-  }
+  },
+  {
+    path: 'video-chat',
+    loadChildren: () => import('./../video-chat/video-chat.module').then( m => m.VideoChatModule)
+  },
 ];
 
 @NgModule({

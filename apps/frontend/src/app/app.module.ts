@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -27,6 +28,9 @@ import { environment } from '../environments/environment';
     AngularFireModule.initializeApp(environment.firebase),
     provideAuth(
       () => getAuth()
+    ),
+    provideFirestore(
+      () => getFirestore()
     )
   ],
   providers: [

@@ -397,11 +397,20 @@ export class ConversationComponent implements OnInit {
 
   // route to the group-info page alone with the groupId
   groupInfo() {
-  //  console.log('Conversation#component#groupInfo');
-   this.router.navigate(['/dashboard/group-info', { 'key': this.groupId }]);
+    // console.log('Conversation#component;groupInfo');
+
+    this.router.navigate(['/dashboard/group-info', { 'key': this.groupId }]);
   }
 
-  more(ev: any) {
+  call() {
+    // console.log('Conversation#component;call');
+
+    this.router.navigate(['/dashboard/conversation/video-chat', { 'key': this.groupId }]);
+  }
+
+  more() {
+     // console.log('Conversation#component;more');
+
     console.log('Conversation#component#more');
   }
 
