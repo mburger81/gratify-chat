@@ -28,7 +28,9 @@ export class LoginService {
     return this.signInWithCredential(credential);
   }
 
-  public logout(): Promise<void> {
+  public async logout(): Promise<void> {
+    await FirebaseAuthentication.signOut();
+
     return signOut(this.auth);
   }
 
