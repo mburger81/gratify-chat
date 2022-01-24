@@ -5,6 +5,12 @@ const config: CapacitorConfig = {
   appName: 'Gratify Chat',
   webDir: '../../dist/apps/frontend',
   bundledWebRuntime: false,
+  plugins: {
+    FirebaseAuthentication: {
+      skipNativeAuth: true,
+      providers: [ "google.com" ],
+    },
+  },
   cordova: {
     preferences: {
       ScrollEnabled: 'false',

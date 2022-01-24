@@ -1,0 +1,77 @@
+{
+  "project_info": {
+    "project_number": "708099785886",
+    "firebase_url": "https://gratify-chat-michi-default-rtdb.firebaseio.com",
+    "project_id": "gratify-chat-michi",
+    "storage_bucket": "gratify-chat-michi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:708099785886:android:0d348a43594f305028a78f",
+        "android_client_info": {
+          "package_name": "com.gratify.chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "708099785886-mphrfig3vti67312kfvsmt2v5kisjdnm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACBRYYfnlXES4LCHa_4HfngHVtF5bMgCs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "708099785886-mphrfig3vti67312kfvsmt2v5kisjdnm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:708099785886:android:754c5e6f6f47816a28a78f",
+        "android_client_info": {
+          "package_name": "com.gratify.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "708099785886-uri6uqtqm937uivor7ceoem4buh1orgu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gratify.com",
+            "certificate_hash": "39b8dcdf1a3d6bf21c7391e010f855932ae046d7"
+          }
+        },
+        {
+          "client_id": "708099785886-mphrfig3vti67312kfvsmt2v5kisjdnm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACBRYYfnlXES4LCHa_4HfngHVtF5bMgCs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "708099785886-mphrfig3vti67312kfvsmt2v5kisjdnm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
