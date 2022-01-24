@@ -2932,6 +2932,11 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=
 
+"@robingenz/capacitor-android-dark-mode-support@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@robingenz/capacitor-android-dark-mode-support/-/capacitor-android-dark-mode-support-1.0.0.tgz#3e7c5e7117b60a657edda1a68cb7cee9c703eaae"
+  integrity sha512-QlldCPzqODpyud4bJJ1h6/3t/umD/N4xu86uenlxMLUOGg8miZEEoTs8HjPdTEb/U3lryx4Et1R5LVHFYguCuw==
+
 "@robingenz/capacitor-firebase-authentication@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@robingenz/capacitor-firebase-authentication/-/capacitor-firebase-authentication-0.4.0.tgz#dbd68a7f49bbfb7317779afb5a7d70027a4a60bd"

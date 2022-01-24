@@ -26,5 +26,8 @@ project(':capacitor-splash-screen').projectDir = new File('../../../node_modules
 include ':capacitor-status-bar'
 project(':capacitor-status-bar').projectDir = new File('../../../node_modules/@capacitor/status-bar/android')
 
+include ':robingenz-capacitor-android-dark-mode-support'
+project(':robingenz-capacitor-android-dark-mode-support').projectDir = new File('../../../node_modules/@robingenz/capacitor-android-dark-mode-support/android')
+
 include ':robingenz-capacitor-firebase-authentication'
 project(':robingenz-capacitor-firebase-authentication').projectDir = new File('../../../node_modules/@robingenz/capacitor-firebase-authentication/android')
