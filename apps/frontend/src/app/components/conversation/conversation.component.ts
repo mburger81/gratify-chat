@@ -3,6 +3,7 @@ import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IonContent, Platform } from '@ionic/angular';
+import { Camera, CameraResultType } from '@capacitor/camera';
 import { Clipboard, ReadResult } from '@capacitor/clipboard';
 import firebase from 'firebase/compat/app';
 import * as _ from 'lodash';
@@ -187,15 +188,28 @@ export class ConversationComponent implements OnInit {
                 resolve(true);
               })
             }
-          }).then(() => {
-          }).catch((err) => {
+          })
+          .then()
+          .catch((err) => {
             reject(err);
           })
-
         }
       });
     });
   }
+
+  async sendPhoto() {
+    // console.log('ConversationComponent#sendPhoto;');
+
+    const image = await Camera.getPhoto({
+
+      allowEditing: false,
+      resultType: CameraResultType.DataUrl
+    });
+
+    this.uploadImageFromURL(image.dataUrl)
+  }
+
 
   // send message photo to user alone with url of photo
   // sendNewPhoto(url) {
