@@ -1,7 +1,7 @@
 {
   "hosting": {
     "target": "app",
-    "public": "www",
+    "public": "dist/apps/frontend",
     "ignore": [
       "**/.*"
     ],

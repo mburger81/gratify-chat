@@ -214,16 +214,21 @@
               "commands": ["npx cap update ios"]
             }
           }
-        }
-      },
-      "deploy": {
-        "builder": "@angular/fire:deploy",
-        "options": {
-          "prerender": false,
-          "ssr": false,
-          "browserTarget": "app:build:production",
-          "firebaseProject": "gratify-chat-michi",
-          "firebaseHostingSite": "gratify-chat-michi"
+        },
+        "firebase": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "cwd": "apps/frontend",
+            "parallel": false
+          },
+          "configurations": {
+            "init": {
+              "commands": ["firebase init"]
+            },
+            "deploy": {
+              "commands": ["firebase deploy"]
+            }
+          }
         }
       },
       "tags": []
