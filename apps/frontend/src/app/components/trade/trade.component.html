@@ -1,0 +1,49 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>Trade</ion-title>
+      <ion-buttons slot="end">
+        <ion-button *ngIf="!wallet?.address" (click)="connect()">
+          Connect
+        </ion-button>
+        <ion-button *ngIf="wallet?.address" class="ion-text-lowercase" (click)="showWallet()">
+          <ion-icon slot="start" name="wallet-sharp"></ion-icon>
+          0x...{{ wallet.address.substring(wallet.address.length-4, wallet.address.length) }}
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+</ion-content>
+
+<!-- Wallet -->
+<ion-popover [isOpen]="isWalletVisible" (didDismiss)="walletDismissed()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Your Wallet</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="hideWallet()">
+            <ion-icon name="close-sharp"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-item>
+        Your Address: {{ wallet?.accounts[0].address }}
+      </ion-item>
+      <ion-item>
+        BNB Balance: {{ wallet?.accounts[0].hfBalance }}
+      </ion-item>
+      <ion-item button (click)="disconnect()">
+        <ion-icon name="exit-sharp" slot="start"></ion-icon>
+        Disconnect
+      </ion-item>
+    </ion-content>
+  </ng-template>
+</ion-popover>

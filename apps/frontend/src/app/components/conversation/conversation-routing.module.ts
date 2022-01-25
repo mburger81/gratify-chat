@@ -15,6 +15,10 @@ const routes: Routes = [
     path: 'video-chat',
     loadChildren: () => import('./../video-chat/video-chat.module').then( m => m.VideoChatModule)
   },
+  {
+    path: 'trade',
+    loadChildren: () => import('./../trade/trade.module').then( m => m.TradeModule)
+  }
 ];
 
 @NgModule({
