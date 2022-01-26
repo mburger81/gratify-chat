@@ -453,7 +453,7 @@
 
 "@angular/service-worker@13.1.2":
   version "13.1.2"
-  resolved "https://registry.npmjs.org/@angular/service-worker/-/service-worker-13.1.2.tgz"
+  resolved "https://registry.yarnpkg.com/@angular/service-worker/-/service-worker-13.1.2.tgz#39007cea6c8dc359f7a6998edc5d1420f4e1c771"
   integrity sha512-tsYWIrVDKeiEVJb/QtKc5EIGiGWdpjdrZLXvQkkiNPfbKwONU/rpD4zO+rqr2Ote1s/IFAycp9CyMMOZw0lgeg==
   dependencies:
     tslib "^2.3.0"
