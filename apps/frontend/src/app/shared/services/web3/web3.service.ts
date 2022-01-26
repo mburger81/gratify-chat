@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import WalletConnectProvider from "@walletconnect/web3-provider";
 import { BehaviorSubject } from 'rxjs';
 import Web3 from 'web3';
 import Web3Modal from "web3modal";
@@ -24,9 +25,19 @@ export class Web3Service {
       // network: "mainnet", // optional
       cacheProvider: true,
       providerOptions: {
-        binancechainwallet: {
-          package: true
+        walletconnect: {
+          package: WalletConnectProvider, // required
+          options: {
+            // infuraId: "d3bd17d36e794e0e8da4cebca3059d7f",
+            rpc: {
+              56: 'https://bsc-dataseed.binance.org'
+            }
+          }
         }
+        // ,
+        // binancechainwallet: {
+        //   package: true
+        // }
       }
     });
 
