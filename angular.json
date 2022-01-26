@@ -49,7 +49,9 @@
               "apps/frontend/src/theme/variables.scss",
               "apps/frontend/src/global.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "serviceWorker": true,
+            "ngswConfigPath": "apps/frontend/ngsw-config.json"
           },
           "configurations": {
             "production": {
