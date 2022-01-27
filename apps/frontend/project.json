@@ -1,0 +1,216 @@
+{
+  "projectType": "application",
+  "root": "apps/frontend",
+  "sourceRoot": "apps/frontend/src",
+  "prefix": "gratify-chat",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/frontend",
+        "index": "apps/frontend/src/index.html",
+        "main": "apps/frontend/src/main.ts",
+        "polyfills": "apps/frontend/src/polyfills.ts",
+        "tsConfig": "apps/frontend/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/frontend/src/assets",
+            "output": "assets"
+          },
+          {
+            "glob": "**/*.svg",
+            "input": "node_modules/ionicons/dist/ionicons/svg",
+            "output": "./svg"
+          },
+          "apps/frontend/src/manifest.webmanifest"
+        ],
+        "styles": [
+          "apps/frontend/src/theme/variables.scss",
+          "apps/frontend/src/global.scss"
+        ],
+        "scripts": [],
+        "serviceWorker": true,
+        "ngswConfigPath": "apps/frontend/ngsw-config.json"
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1.2mb" // default 1.0mb
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/frontend/src/environments/environment.ts",
+              "with": "apps/frontend/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "frontend:build:production"
+        },
+        "development": {
+          "browserTarget": "frontend:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "frontend:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/frontend/src/**/*.ts",
+          "apps/frontend/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/frontend"],
+      "options": {
+        "jestConfig": "apps/frontend/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "add": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "cwd": "apps/frontend",
+        "parallel": false
+      },
+      "configurations": {
+        "android": {
+          "commands": ["npx cap add android"]
+        },
+        "ios": {
+          "commands": ["npx cap add ios"]
+        }
+      }
+    },
+    "copy": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": ["npx cap copy"],
+        "cwd": "apps/frontend",
+        "parallel": false
+      },
+      "configurations": {
+        "android": {
+          "commands": ["npx cap copy android"]
+        },
+        "ios": {
+          "commands": ["npx cap copy ios"]
+        }
+      }
+    },
+    "open": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "cwd": "apps/frontend",
+        "parallel": false
+      },
+      "configurations": {
+        "android": {
+          "commands": ["npx cap open android"]
+        },
+        "ios": {
+          "commands": ["npx cap open ios"]
+        }
+      }
+    },
+    "run": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "cwd": "apps/frontend",
+        "parallel": false
+      },
+      "configurations": {
+        "android": {
+          "commands": ["npx cap run android"]
+        },
+        "ios": {
+          "commands": ["npx cap run ios"]
+        }
+      }
+    },
+    "sync": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": ["npx cap sync"],
+        "cwd": "apps/frontend",
+        "parallel": false
+      },
+      "configurations": {
+        "android": {
+          "commands": ["npx cap sync android"]
+        },
+        "ios": {
+          "commands": ["npx cap sync ios"]
+        }
+      }
+    },
+    "capupdate": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": ["npx cap update"],
+        "cwd": "apps/frontend",
+        "parallel": false
+      },
+      "configurations": {
+        "android": {
+          "commands": ["npx cap update android"]
+        },
+        "ios": {
+          "commands": ["npx cap update ios"]
+        }
+      }
+    },
+    "firebase": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "cwd": "apps/frontend",
+        "parallel": false
+      },
+      "configurations": {
+        "init": {
+          "commands": ["firebase init"]
+        },
+        "deploy": {
+          "commands": ["firebase deploy"]
+        }
+      }
+    }
+  },
+  "tags": []
+}

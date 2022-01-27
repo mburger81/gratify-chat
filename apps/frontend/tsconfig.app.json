@@ -3,6 +3,8 @@
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "types": [],
+    // not sure why nx is using ES2017
+    "target": "ES2017",
     "paths": {
       "crypto": ["./node_modules/crypto-browserify"],
       "stream": ["./node_modules/stream-browserify"],
@@ -14,10 +16,10 @@
     },
     // custom
     "noImplicitAny": false,
-    "noImplicitReturns": false,
-    "skipLibCheck": true,
+    "noPropertyAccessFromIndexSignature": false,
     "strictNullChecks": false
   },
   "files": ["src/main.ts", "src/polyfills.ts"],
-  "include": ["src/**/*.d.ts"]
+  "include": ["src/**/*.d.ts"],
+  "exclude": ["**/*.test.ts", "**/*.spec.ts"]
 }
