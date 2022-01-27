@@ -1,0 +1,23 @@
+{
+  "projectType": "library",
+  "root": "libs/swap",
+  "sourceRoot": "libs/swap/src",
+  "prefix": "gratify-chat",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/swap"],
+      "options": {
+        "jestConfig": "libs/swap/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/swap/src/**/*.ts", "libs/swap/src/**/*.html"]
+      }
+    }
+  },
+  "tags": []
+}

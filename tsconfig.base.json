@@ -14,7 +14,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@gratify-chat/swap": ["libs/swap/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
