@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/uniswap-dapp-integration-shared",
+  "sourceRoot": "libs/uniswap-dapp-integration-shared/src",
+  "prefix": "gratify-chat",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/uniswap-dapp-integration-shared"],
+      "options": {
+        "jestConfig": "libs/uniswap-dapp-integration-shared/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/uniswap-dapp-integration-shared/src/**/*.ts",
+          "libs/uniswap-dapp-integration-shared/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

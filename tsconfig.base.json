@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@gratify-chat/swap": ["libs/swap/src/index.ts"]
+      "@gratify-chat/swap": ["libs/swap/src/index.ts"],
+      "uniswap-dapp-integration-shared": ["libs/uniswap-dapp-integration-shared/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

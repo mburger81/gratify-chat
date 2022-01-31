@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { BehaviorSubject } from 'rxjs';
-import Web3 from 'web3';
+// import Web3 from 'web3';
+import { ethers } from 'ethers';
 import Web3Modal from "web3modal";
 
 
@@ -16,8 +17,8 @@ export class Web3Service {
   public wallet$: BehaviorSubject<any> = new BehaviorSubject(null);
 
   private web3Modal: Web3Modal;
-  private web3: Web3;
-  private provider;
+  // private web3: Web3;
+  public provider: any;
 
 
   constructor() {
@@ -30,7 +31,8 @@ export class Web3Service {
           options: {
             // infuraId: "d3bd17d36e794e0e8da4cebca3059d7f",
             rpc: {
-              56: 'https://bsc-dataseed.binance.org'
+              56: 'https://bsc-dataseed.binance.org',
+              97: 'https://data-seed-prebsc-1-s1.binance.org:8545',
             }
           }
         }
@@ -50,8 +52,8 @@ export class Web3Service {
   public async connect() {
     try {
 
-      this.provider = await this.web3Modal.connect();
-      this.web3 = new Web3(this.provider);
+      const instance = await this.web3Modal.connect();
+      this.provider = new ethers.providers.Web3Provider(instance);
 
     } catch(e) {
 
@@ -90,59 +92,41 @@ export class Web3Service {
     // console.log("Web3Service#disconnect; this.provider.close:", this.provider.close);
 
     // TODO: Which providers have close method?
-    if(this.provider.close) {
-      await this.provider.close();
-    }
+    // if(this.provider.close) {
+    //   await this.provider.close();
+    // }
 
     // If the cached provider is not cleared,
     // WalletConnect will default to the existing session
     // and does not allow to re-scan the QR code with a new wallet.
     // Depending on your use case you may want or want not his behavir.
     await this.web3Modal.clearCachedProvider();
-    this.provider = null;
+    // this.provider = void;
 
     this.wallet$.next(null);
   }
 
   private async fetchAccountData() {
-    const wallet: { chainId?: number, address?: string; accounts?: any} = {};
+    const wallet: { chainId?: number, address?: string; account?: any} = {};
 
     // Get connected chain id from Ethereum node
-    const chainId = await this.web3.eth.getChainId();
+    const chainId = (await this.provider.getNetwork()).chainId
     wallet.chainId = chainId;
     // console.log('WebService#fetchAccountData; chainId:', chainId);
     // Load chain information over an HTTP API
     // const chainData = evmChains.getChain(chainId);
     // console.log('WebService#fetchAccountData; chatinData:', chainData);
 
-    // Get list of accounts of the connected wallet
-    const accounts = await this.web3.eth.getAccounts();
 
-    // MetaMask does not give you all accounts, only the selected account
-    // console.log("WebService#fetchAccountData; accounts", accounts);
-    const selectedAccount = accounts[0];
-    // console.log("WebService#fetchAccountData; selectedAccount", selectedAccount);
-    wallet.address = selectedAccount;
+    wallet.address = await this.provider.getSigner().getAddress();
 
-    wallet.accounts = [];
+    const balance = await this.provider.getBalance(wallet.address);
 
-    // Go through all accounts and get their ETH balance
-    const rowResolvers = accounts.map(async (address) => {
-      const balance = await this.web3.eth.getBalance(address);
-      // ethBalance is a BigNumber instance
-      // https://github.com/indutny/bn.js/
-      const ethBalance = this.web3.utils.fromWei(balance, "ether");
-      const humanFriendlyBalance = parseFloat(ethBalance).toFixed(4);
-      // console.log("WebService#fetchAccountData; ethBalance", ethBalance);
-      // console.log("WebService#fetchAccountData; humanFriendlyBalance", humanFriendlyBalance);
-
-      wallet.accounts.push({ address: address, balance: ethBalance, hfBalance: humanFriendlyBalance });
-    });
-
-    // Because rendering account does its own RPC commucation
-    // with Ethereum node, we do not want to display any results
-    // until data for all accounts is loaded
-    await Promise.all(rowResolvers);
+    const ethBalance = ethers.utils.formatEther(balance);
+    const humanFriendlyBalance = parseFloat(ethBalance).toFixed(4);
+    // console.log("WebService#fetchAccountData; ethBalance", ethBalance);
+    // console.log("WebService#fetchAccountData; humanFriendlyBalance", humanFriendlyBalance);
+    wallet.account = { address: wallet.address, balance: ethBalance, hfBalance: humanFriendlyBalance };
 
     this.wallet$.next(wallet);
   }

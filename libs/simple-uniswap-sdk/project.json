@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/simple-uniswap-sdk",
+  "sourceRoot": "libs/simple-uniswap-sdk/src",
+  "prefix": "gratify-chat",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/simple-uniswap-sdk"],
+      "options": {
+        "jestConfig": "libs/simple-uniswap-sdk/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/simple-uniswap-sdk/src/**/*.ts",
+          "libs/simple-uniswap-sdk/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

@@ -12,7 +12,10 @@
       "http": ["./node_modules/stream-http"],
       "https": ["./node_modules/https-browserify"],
       "os": ["./node_modules/os-browserify"],
-      "process": ["./node_modules/process/browser"]
+      "process": ["./node_modules/process/browser"],
+      "simple-uniswap-sdk": ["libs/simple-uniswap-sdk/src/index.ts"],
+      "@gratify-chat/swap": ["libs/swap/src/index.ts"],
+      "uniswap-dapp-integration-shared": ["libs/uniswap-dapp-integration-shared/src/index.ts"]
     },
     // custom
     "noImplicitAny": false,

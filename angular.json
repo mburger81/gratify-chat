@@ -3,6 +3,8 @@
   "projects": {
     "frontend": "apps/frontend",
     "frontend-e2e": "apps/frontend-e2e",
-    "swap": "libs/swap"
+    "simple-uniswap-sdk": "libs/simple-uniswap-sdk",
+    "swap": "libs/swap",
+    "uniswap-dapp-integration-shared": "libs/uniswap-dapp-integration-shared"
   }
 }
