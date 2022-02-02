@@ -328,14 +328,16 @@ export class UniswapDappSharedLogic {
   public hideTokenSelector(): void {
     this.selectorOpenFrom = undefined;
     this.currentTokenSearch = undefined;
-    this._theming.hideTokenSelector();
+    // mburger
+    // this._theming.hideTokenSelector();
   }
 
   /**
    * Show the confirm swap modal
    */
   public showConfirmSwap(): void {
-    this._theming.showConfirmSwap();
+    // mburger
+    // this._theming.showConfirmSwap();
     this._confirmSwapOpened = true;
   }
 

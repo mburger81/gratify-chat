@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 // import { BrowserModule } from '@angular/platform-browser';
+import { IonicModule } from '@ionic/angular';
 import { UniswapAngularSwapperComponent } from './uniswap-angular-swapper/uniswap-angular-swapper.component';
-import { LoadingComponent } from './uniswap-angular-swapper/components/loading/loading.component';
 import { HeaderComponent } from './uniswap-angular-swapper/components/header/header.component';
 import { ConfirmSwapModalComponent } from './uniswap-angular-swapper/components/confirm-swap-modal/confirm-swap-modal.component';
 import { TransactionModalComponent } from './uniswap-angular-swapper/components/transaction-modal/transaction-modal.component';
@@ -15,9 +15,10 @@ import { SafePipe } from './pipes/safe.pipe';
 import { TokenIconComponent } from './uniswap-angular-swapper/components/token-icon/token-icon.component';
 
 @NgModule({
-  declarations: [UniswapAngularSwapperComponent, LoadingComponent, HeaderComponent, ConfirmSwapModalComponent, TransactionModalComponent, ErrorComponent, TokensModalComponent, SwapQuoteInfoComponent, ApprovalComponent, SafePipe, TokenIconComponent],
+  declarations: [UniswapAngularSwapperComponent, HeaderComponent, ConfirmSwapModalComponent, TransactionModalComponent, ErrorComponent, TokensModalComponent, SwapQuoteInfoComponent, ApprovalComponent, SafePipe, TokenIconComponent],
   imports: [
     CommonModule,
+    IonicModule,
     FormsModule
     // ,
     // BrowserModule

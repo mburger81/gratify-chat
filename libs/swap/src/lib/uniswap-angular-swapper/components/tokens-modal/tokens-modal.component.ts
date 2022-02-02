@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ContentChild, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { IonModal } from '@ionic/angular';
 import {
   ErrorCodes,
   SelectTokenActionFrom,
@@ -16,9 +17,11 @@ export class TokensModalComponent {
   @Input() public uniswapDappSharedLogic!: UniswapDappSharedLogic;
   @Output() public switchSwapCompleted = new EventEmitter<SwapSwitchResponse>();
   @Output() public changedTokenCompleted = new EventEmitter<boolean>();
+  @Output() public shouldDismiss = new EventEmitter<void>();
 
   public utils = UniswapUtils;
   public searchToken: string | undefined;
+
   constructor() {}
 
   /**
@@ -33,6 +36,8 @@ export class TokensModalComponent {
           contractAddress
         ) {
           this.uniswapDappSharedLogic.hideTokenSelector();
+          // mburger
+          this.dismiss();
           return;
         }
 
@@ -43,6 +48,8 @@ export class TokensModalComponent {
           const swapResponse = await this.uniswapDappSharedLogic.swapSwitch();
           this.switchSwapCompleted.emit(swapResponse);
           this.uniswapDappSharedLogic.hideTokenSelector();
+          // mburger
+          this.dismiss();
           return;
         }
 
@@ -54,6 +61,8 @@ export class TokensModalComponent {
           contractAddress
         ) {
           this.uniswapDappSharedLogic.hideTokenSelector();
+          // mburger
+          this.dismiss();
           return;
         }
 
@@ -64,6 +73,8 @@ export class TokensModalComponent {
           const swapResponse = await this.uniswapDappSharedLogic.swapSwitch();
           this.switchSwapCompleted.emit(swapResponse);
           this.uniswapDappSharedLogic.hideTokenSelector();
+          // mburger
+          this.dismiss();
           return;
         }
 
@@ -89,5 +100,9 @@ export class TokensModalComponent {
     }
 
     this.changedTokenCompleted.emit(false);
+  }
+
+  public dismiss() {
+    this.shouldDismiss.next();
   }
 }

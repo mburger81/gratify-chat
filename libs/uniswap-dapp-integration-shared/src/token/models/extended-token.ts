@@ -6,4 +6,5 @@ export interface ExtendedToken extends Token {
   balance: BigNumber;
   fiatPrice: BigNumber | undefined;
   tokenImageContext: TokenImage;
+  symbol: string;
 }

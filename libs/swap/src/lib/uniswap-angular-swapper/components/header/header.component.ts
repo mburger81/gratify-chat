@@ -14,7 +14,9 @@ export class HeaderComponent {
   @Output() public disableMultihopsCompleted = new EventEmitter<boolean>();
 
   public slippageCustom: number | undefined;
-  public transactionDeadline: number | undefined;
+  // public transactionDeadline: number | undefined;
+
+  isSettingsVisible = false;
 
   constructor() {}
 
@@ -54,5 +56,38 @@ export class HeaderComponent {
     }
 
     this.disableMultihopsCompleted.emit(noLiquidityFound);
+  }
+
+
+ async onChangeMultihops(event: Event): Promise<void> {
+  //  console.log('HeaderComponent#onChangeMultihops; event', event);
+
+   const e = <CustomEvent> event;
+
+   if (e.detail.checked === this.uniswapDappSharedLogic.uniswapPairSettings.disableMultihops) {
+     return;
+   }
+
+   return this.setDisableMultihops(e.detail.checked);
+ }
+
+ async onChangeDeadline(event: Event): Promise<void> {
+  const e = <CustomEvent> event;
+
+  return this.uniswapDappSharedLogic.setTransactionDeadline(e.detail.value);
+}
+
+  showSettings() {
+    // show settings popover
+    this.isSettingsVisible = true;
+  }
+
+  hideSettings() {
+    // hide settings popover
+    this.isSettingsVisible = false;
+  }
+
+  settingsDismissed() {
+    this.isSettingsVisible = false;
   }
 }
