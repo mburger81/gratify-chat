@@ -8,80 +8,84 @@
       </lib-header>
 
       <ion-card-content *ngIf="uniswapDappSharedLogic.supportedNetwork">
-        <ion-item>
-          <ion-input
-            autocomplete="off"
-            autocorrect="off"
-            type="number"
-            step="any"
-            placeholder="0.0"
-            (ionInput)="onInput($event)"
-            [maxlength]="uniswapDappSharedLogic.inputToken?.decimals"
-            spellcheck="false"
-            [(ngModel)]="inputValue"
-            (ngModelChange)="inputTradePriceChanged.next($event)"
-            [disabled]="uniswapDappSharedLogic.transactionInProcess()"
-          >
-          </ion-input>
-          <!-- (click)="uniswapDappSharedLogic.openTokenSelectorFrom()" -->
-          <ion-button
-              fill="outline"
-              shape="round"
-              size="large"
-              slot="end"
-              (click)="showTokenSelector('input')"
-          >
-            <ion-icon src="data:image/svg+xml;utf8,{{ uniswapDappSharedLogic.inputToken.tokenImageContext.image }}"></ion-icon>
-            <span
-              class="
-                uni-ic__swap-input-content-main-from-currency-symbol
-              "
-              >{{ uniswapDappSharedLogic.inputToken.symbol }}</span
-            ><svg
-              width="12"
-              height="7"
-              viewBox="0 0 12 7"
-              fill="none"
-              class="
-                uni-ic__swap-input-content-main-from-currency-choose
-              "
-            >
-              <path
-                d="M0.97168 1L6.20532 6L11.439 1"
-                stroke="#AEAEAE"
-              ></path>
-            </svg>
-          </ion-button>
-        </ion-item>
-        <ion-item>
-          <div>
-            <div>
+        <ion-card color="light">
+          <ion-card-content>
+            <ion-item color="light">
+              <ion-input
+                autocomplete="off"
+                autocorrect="off"
+                type="number"
+                step="any"
+                placeholder="0.0"
+                (ionInput)="onInput($event)"
+                [maxlength]="uniswapDappSharedLogic.inputToken?.decimals"
+                spellcheck="false"
+                [(ngModel)]="inputValue"
+                (ngModelChange)="inputTradePriceChanged.next($event)"
+                [disabled]="uniswapDappSharedLogic.transactionInProcess()"
+              >
+              </ion-input>
+              <!-- (click)="uniswapDappSharedLogic.openTokenSelectorFrom()" -->
+              <ion-button
+                  fill="outline"
+                  shape="round"
+                  size="large"
+                  slot="end"
+                  (click)="showTokenSelector('input')"
+              >
+                <ion-icon src="data:image/svg+xml;utf8,{{ uniswapDappSharedLogic.inputToken.tokenImageContext.image }}"></ion-icon>
+                <span
+                  class="
+                    uni-ic__swap-input-content-main-from-currency-symbol
+                  "
+                  >{{ uniswapDappSharedLogic.inputToken.symbol }}</span
+                ><svg
+                  width="12"
+                  height="7"
+                  viewBox="0 0 12 7"
+                  fill="none"
+                  class="
+                    uni-ic__swap-input-content-main-from-currency-choose
+                  "
+                >
+                  <path
+                    d="M0.97168 1L6.20532 6L11.439 1"
+                    stroke="#AEAEAE"
+                  ></path>
+                </svg>
+              </ion-button>
+            </ion-item>
+            <ion-item color="light">
               <div>
-                Balance:
-                {{
-                  utils.toPrecision(
-                    uniswapDappSharedLogic.inputToken.balance
-                  )
-                }}
-                {{ uniswapDappSharedLogic.inputToken.symbol }}
-              </div>
-            </div>
-            <div *ngIf="inputValue && uniswapDappSharedLogic.inputToken!.fiatPrice">
-              ~$
-              <span>
-                {{
-                  utils.formatCurrency(
-                    utils.toPrecision(
-                      uniswapDappSharedLogic.inputToken!.fiatPrice.times(
-                        inputValue
+                <div>
+                  <div>
+                    Balance:
+                    {{
+                      utils.toPrecision(
+                        uniswapDappSharedLogic.inputToken.balance
                       )
-                    )
-                  )
-                }}
-              </span>
-            </div>
-          </div>
-        </ion-item>
+                    }}
+                    {{ uniswapDappSharedLogic.inputToken.symbol }}
+                  </div>
+                </div>
+                <div *ngIf="inputValue && uniswapDappSharedLogic.inputToken!.fiatPrice">
+                  ~$
+                  <span>
+                    {{
+                      utils.formatCurrency(
+                        utils.toPrecision(
+                          uniswapDappSharedLogic.inputToken!.fiatPrice.times(
+                            inputValue
+                          )
+                        )
+                      )
+                    }}
+                  </span>
+                </div>
+              </div>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
         <ion-item>
           <ion-button
               (click)="switchSwap()"
@@ -91,119 +95,123 @@
             <ion-icon slot="icon-only" name="swap-vertical-sharp"></ion-icon>
           </ion-button>
         </ion-item>
-        <ion-item>
-          <ion-input
-            autocomplete="off"
-            autocorrect="off"
-            type="number"
-            step="any"
-            placeholder="0.0"
-            (onInput)="onInput($event)"
-            [maxlength]="uniswapDappSharedLogic.outputToken?.decimals"
-            spellcheck="false"
-            [(ngModel)]="outputValue"
-            (ngModelChange)="outputTradePriceChanged.next($event)"
-            [disabled]="uniswapDappSharedLogic.transactionInProcess()">
-          </ion-input>
-          <ion-button
-              fill="outline"
-              shape="round"
-              size="large"
-              slot="end"
-              (click)="showTokenSelector('output')"
-          >
-            <span
-              class="uni-ic__swap-output-content-main-select-content"
-              *ngIf="!uniswapDappSharedLogic.outputToken"
-              ><span
-                class="
-                  uni-ic__swap-output-content-main-select-content-title
-                "
-                >Select a token</span
-              ><svg
-                width="12"
-                height="7"
-                viewBox="0 0 12 7"
-                fill="none"
-                class="
-                  uni-ic__swap-output-content-main-select-content-icon
-                "
+        <ion-card color="light">
+          <ion-card-content>
+            <ion-item color="light">
+              <ion-input
+                autocomplete="off"
+                autocorrect="off"
+                type="number"
+                step="any"
+                placeholder="0.0"
+                (onInput)="onInput($event)"
+                [maxlength]="uniswapDappSharedLogic.outputToken?.decimals"
+                spellcheck="false"
+                [(ngModel)]="outputValue"
+                (ngModelChange)="outputTradePriceChanged.next($event)"
+                [disabled]="uniswapDappSharedLogic.transactionInProcess()">
+              </ion-input>
+              <ion-button
+                  fill="outline"
+                  shape="round"
+                  size="large"
+                  slot="end"
+                  (click)="showTokenSelector('output')"
               >
-                <path
-                  d="M0.97168 1L6.20532 6L11.439 1"
-                  stroke="#AEAEAE"
-                ></path>
-              </svg>
-            </span>
+                <span
+                  class="uni-ic__swap-output-content-main-select-content"
+                  *ngIf="!uniswapDappSharedLogic.outputToken"
+                  ><span
+                    class="
+                      uni-ic__swap-output-content-main-select-content-title
+                    "
+                    >Select a token</span
+                  ><svg
+                    width="12"
+                    height="7"
+                    viewBox="0 0 12 7"
+                    fill="none"
+                    class="
+                      uni-ic__swap-output-content-main-select-content-icon
+                    "
+                  >
+                    <path
+                      d="M0.97168 1L6.20532 6L11.439 1"
+                      stroke="#AEAEAE"
+                    ></path>
+                  </svg>
+                </span>
 
-            <span
-              class="uni-ic__swap-input-content-main-from-currency"
-              *ngIf="uniswapDappSharedLogic.outputToken"
-            >
-              <ion-icon src="data:image/svg+xml;utf8,{{ uniswapDappSharedLogic.outputToken.tokenImageContext.image }}"></ion-icon>
+                <span
+                  class="uni-ic__swap-input-content-main-from-currency"
+                  *ngIf="uniswapDappSharedLogic.outputToken"
+                >
+                  <ion-icon src="data:image/svg+xml;utf8,{{ uniswapDappSharedLogic.outputToken.tokenImageContext.image }}"></ion-icon>
 
-              <span
-                class="
-                  uni-ic__swap-input-content-main-from-currency-symbol
-                "
-                >{{ uniswapDappSharedLogic.outputToken.symbol }}</span
-              ><svg
-                width="12"
-                height="7"
-                viewBox="0 0 12 7"
-                fill="none"
-                class="
-                  uni-ic__swap-input-content-main-from-currency-choose
-                "
-              >
-                <path
-                  d="M0.97168 1L6.20532 6L11.439 1"
-                  stroke="#AEAEAE"
-                ></path>
-              </svg>
-            </span>
-          </ion-button>
-        </ion-item>
-        <ion-item *ngIf="uniswapDappSharedLogic.outputToken">
-          <div class="uni-ic__swap-content-balance-and-price">
-            <div class="uni-ic__swap-content-balance-and-price__balance">
-              <div
-                class="
-                  uni-ic__swap-content-balance-and-price__balance-text
-                "
-              >
-                Balance:
-                {{
-                  utils.toPrecision(
-                    uniswapDappSharedLogic.outputToken!.balance
-                  )
-                }}
-                {{ uniswapDappSharedLogic.outputToken!.symbol }}
-              </div>
-            </div>
-            <div
-              class="uni-ic__swap-content-balance-and-price__price"
-              *ngIf="
-                outputValue &&
-                uniswapDappSharedLogic.outputToken!.fiatPrice
-              "
-            >
-              ~$
-              <span
-                class="uni-ic__swap-content-balance-and-price__price-text"
-                >{{
-                  utils.formatCurrency(
-                    utils.toPrecision(
-                      uniswapDappSharedLogic.outputToken!.fiatPrice.times(
-                        outputValue
+                  <span
+                    class="
+                      uni-ic__swap-input-content-main-from-currency-symbol
+                    "
+                    >{{ uniswapDappSharedLogic.outputToken.symbol }}</span
+                  ><svg
+                    width="12"
+                    height="7"
+                    viewBox="0 0 12 7"
+                    fill="none"
+                    class="
+                      uni-ic__swap-input-content-main-from-currency-choose
+                    "
+                  >
+                    <path
+                      d="M0.97168 1L6.20532 6L11.439 1"
+                      stroke="#AEAEAE"
+                    ></path>
+                  </svg>
+                </span>
+              </ion-button>
+            </ion-item>
+            <ion-item color="light" *ngIf="uniswapDappSharedLogic.outputToken">
+              <div class="uni-ic__swap-content-balance-and-price">
+                <div class="uni-ic__swap-content-balance-and-price__balance">
+                  <div
+                    class="
+                      uni-ic__swap-content-balance-and-price__balance-text
+                    "
+                  >
+                    Balance:
+                    {{
+                      utils.toPrecision(
+                        uniswapDappSharedLogic.outputToken!.balance
                       )
-                    )
-                  )
-                }}</span
-              >
-            </div>
-          </div>
-        </ion-item>
+                    }}
+                    {{ uniswapDappSharedLogic.outputToken!.symbol }}
+                  </div>
+                </div>
+                <div
+                  class="uni-ic__swap-content-balance-and-price__price"
+                  *ngIf="
+                    outputValue &&
+                    uniswapDappSharedLogic.outputToken!.fiatPrice
+                  "
+                >
+                  ~$
+                  <span
+                    class="uni-ic__swap-content-balance-and-price__price-text"
+                    >{{
+                      utils.formatCurrency(
+                        utils.toPrecision(
+                          uniswapDappSharedLogic.outputToken!.fiatPrice.times(
+                            outputValue
+                          )
+                        )
+                      )
+                    }}</span
+                  >
+                </div>
+              </div>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
         <ion-button
           (click)="showConfirmSwap()"
           expand="block"
@@ -275,10 +283,6 @@
         <lib-error error="Chain id {{ uniswapDappSharedLogic?.chainId }} is a unsupported network."></lib-error>
       </ion-row>
     </ion-grid>
-
-    <lib-transaction-modal
-      [uniswapDappSharedLogic]="uniswapDappSharedLogic"
-    ></lib-transaction-modal>
   </ng-container>
 </div>
 
@@ -301,14 +305,28 @@
 
 <ion-modal
     [isOpen]="isConfirmSwapVisible"
+    (didDismiss)="confirmSwapDismissed()"
     side="top"
 >
   <ng-template>
     <lib-confirm-swap-modal
         [uniswapDappSharedLogic]="uniswapDappSharedLogic"
+        (shouldDismiss)="hideConfirmSwap()"
+        (swap)="swap()"
     >
     </lib-confirm-swap-modal>
   </ng-template>
 </ion-modal>
 
-
+<ion-modal
+  [isOpen]="isTransactionVisible"
+  (didDismiss)="transactionDismissed()"
+  side="top"
+>
+  <ng-template>
+    <lib-transaction-modal
+      [uniswapDappSharedLogic]="uniswapDappSharedLogic"
+    >
+    </lib-transaction-modal>
+  </ng-template>
+</ion-modal>

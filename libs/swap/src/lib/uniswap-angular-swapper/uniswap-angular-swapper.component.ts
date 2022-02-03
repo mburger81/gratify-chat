@@ -60,6 +60,7 @@ export class UniswapAngularSwapperComponent implements OnInit, OnDestroy {
 
   isTokenSelectorVisible = false;
   isConfirmSwapVisible = false;
+  isTransactionVisible = false;
 
   constructor() {}
 
@@ -337,5 +338,30 @@ export class UniswapAngularSwapperComponent implements OnInit, OnDestroy {
   showConfirmSwap() {
     this.uniswapDappSharedLogic.showConfirmSwap();
     this.isConfirmSwapVisible = true;
+  }
+
+  hideConfirmSwap() {
+    this.isConfirmSwapVisible = false;
+  }
+
+  confirmSwapDismissed() {
+    this.hideConfirmSwap();
+  }
+
+  swap() {
+    this.hideConfirmSwap();
+    this.showTransaction();
+  }
+
+  private showTransaction() {
+    this.isTransactionVisible = true;
+  }
+
+  hideTransaction() {
+    this.isTransactionVisible = false;
+  }
+
+  transactionDismissed() {
+    this.hideTransaction();
   }
 }

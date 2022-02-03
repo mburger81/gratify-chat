@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header translucent>
   <ion-toolbar>
     <ion-title>Confirm swap</ion-title>
     <ion-buttons slot="end">
@@ -8,37 +8,173 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
-<ion-content>
+<ion-content fullscreen>
+  <ion-list>
+    <ion-item>
+      <ion-label>From</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-avatar>
+        <lib-token-icon
+            [tokenImageContext]="uniswapDappSharedLogic.inputToken.tokenImageContext"
+        >
+        </lib-token-icon>
+      </ion-avatar>
+      <ion-label>
+        {{ uniswapDappSharedLogic.tradeContext.fromToken.symbol }}
+      </ion-label>
+      <ion-label
+          *ngIf="uniswapDappSharedLogic.tradeContext.quoteDirection === 'input'"
+          slot="end"
+      >
+        {{ uniswapDappSharedLogic.tradeContext.baseConvertRequest }}
+      </ion-label>
+      <ion-label
+          *ngIf=" uniswapDappSharedLogic.tradeContext.quoteDirection === 'output'"
+          slot="end"
+      >
+        {{ uniswapDappSharedLogic.tradeContext.expectedConvertQuote }}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>To</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-avatar>
+        <lib-token-icon
+          [tokenImageContext]="uniswapDappSharedLogic.outputToken!.tokenImageContext"
+        >
+        </lib-token-icon>
+      </ion-avatar>
+      <ion-label>
+        {{ uniswapDappSharedLogic.tradeContext.toToken.symbol }}
+      </ion-label>
+      <ion-label
+          *ngIf="uniswapDappSharedLogic.tradeContext.quoteDirection === 'input'"
+          slot="end"
+      >
+        {{ uniswapDappSharedLogic.tradeContext.expectedConvertQuote }}
+      </ion-label>
+      <ion-label
+          *ngIf="uniswapDappSharedLogic.tradeContext.quoteDirection === 'output'"
+          slot="end"
+      >
+        {{ uniswapDappSharedLogic.tradeContext.baseConvertRequest }}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label slot="end">
+        1
+        {{ uniswapDappSharedLogic.tradeContext.fromToken.symbol }} =
+        {{ uniswapDappSharedLogic.workOutOneEqualTo() }}
+        {{ uniswapDappSharedLogic.tradeContext.toToken.symbol }}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Liquidity Provider Fee
+      </ion-label>
+      <ion-label slot="end">
+        {{ uniswapDappSharedLogic.tradeContext.liquidityProviderFee }}
+        {{ uniswapDappSharedLogic.tradeContext.fromToken.symbol }}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Route
+      </ion-label>
+      <ion-label slot="end">
+        {{ uniswapDappSharedLogic.tradeContext.routeText }}
+      </ion-label>
+    </ion-item>
+    <!-- <ion-item>
+      <ion-label>
+        Price Impact
+      </ion-label>
+      <ion-label slot="end">
+        -0.03%
+      </ion-label>
+    </ion-item> -->
+    <ion-item *ngIf="uniswapDappSharedLogic.tradeContext.minAmountConvertQuote">
+      <ion-label>
+        Minimum received
+      </ion-label>
+      <ion-label slot="end">
+        {{ uniswapDappSharedLogic.tradeContext.minAmountConvertQuote }}
+        {{ uniswapDappSharedLogic.tradeContext.toToken.symbol }}
+      </ion-label>
+    </ion-item>
+    <ion-item *ngIf="uniswapDappSharedLogic.tradeContext.maximumSent">
+      <ion-label>
+        Maximum sent
+      </ion-label>
+      <ion-label slot="end">
+        {{ uniswapDappSharedLogic.tradeContext.maximumSent }}
+        {{ uniswapDappSharedLogic.tradeContext.fromToken.symbol }}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Slippage tolerance
+      </ion-label>
+      <ion-label slot="end">
+        {{ uniswapDappSharedLogic.uniswapPairSettings.slippage * 100 }}%
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Uniswap version
+      </ion-label>
+      <ion-label slot="end">
+        {{ uniswapDappSharedLogic.tradeContext.uniswapVersion }}
+      </ion-label>
+    </ion-item>
+    <ion-item *ngIf="uniswapDappSharedLogic.newPriceTradeContext">
+      <ion-icon slot="start" name="warning-sharp"></ion-icon>
+      <ion-label>Price Updated</ion-label>
+      <ion-button slot="end" (click)="uniswapDappSharedLogic.acceptPriceChange()">
+        Accept
+      </ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-label
+          *ngIf="uniswapDappSharedLogic.tradeContext.minAmountConvertQuote"
+          class="ion-text-wrap"
+      >
+        Output is estimated. You will receive at least
+        <b
+          >{{ uniswapDappSharedLogic.tradeContext.minAmountConvertQuote }}
+          {{ uniswapDappSharedLogic.tradeContext.toToken.symbol }}</b
+        >
+        or the transaction will revert.
+      </ion-label>
+      <ion-label
+          *ngIf="uniswapDappSharedLogic.tradeContext.maximumSent"
+          class="ion-text-wrap"
+      >
+        Input is estimated. You will sell at most
+        <b
+          >{{ uniswapDappSharedLogic.tradeContext.maximumSent }}
+          {{ uniswapDappSharedLogic.tradeContext.fromToken.symbol }}</b
+        >
+        or the transaction will revert.
+      </ion-label>
+    </ion-item>
+    <ion-button
+        expand="block"
+        [disabled]="uniswapDappSharedLogic.newPriceTradeContext"
+        (click)="swapTransaction()"
+    >
+      <ion-label>Confirm Swap</ion-label>
+    </ion-button>
+    <ion-item>
+      <ion-label>              </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
 
 
-<div
-  id="uni-ic__modal-confirm-swap"
-  class="uni-ic__modal"
-  *ngIf="uniswapDappSharedLogic.supportedNetwork"
->
-  <div
-    class="
-      uni-ic__modal__content uni-ic__modal-confirm-swap uni-ic__theme-background
-    "
-  >
-    <span
-      class="uni-ic__modal__close"
-      (click)="uniswapDappSharedLogic.hideConfirmSwap()"
-      >&times;</span
-    >
-    <p>Confirm swap</p>
-
-    <div
-      class="uni-ic__modal-confirm-swap__content"
-      *ngIf="uniswapDappSharedLogic.tradeContext"
-    >
-      <div
-        class="uni-ic__modal-confirm-swap__input-container uni-ic__theme-panel"
-      >
-        <div class="uni-ic__modal-confirm-swap__input">
-          <div class="uni-ic__modal-confirm-swap__input-header">
+<!--
             <div class="uni-ic__modal-confirm-swap__input-header__text">
               From
             </div>
@@ -57,69 +193,7 @@
                 )
               }}</span>
             </div>
-          </div>
-          <div class="uni-ic__modal-confirm-swap__input-main">
-            <div class="uni-ic__modal-confirm-swap__input-main__symbol">
-              <lib-token-icon
-                classes="uni-ic__modal-confirm-swap__input-main__symbol__image"
-                [tokenImageContext]="
-                  uniswapDappSharedLogic.inputToken.tokenImageContext
-                "
-              ></lib-token-icon>
-              <div
-                class="uni-ic__modal-confirm-swap__input-main__symbol__label"
-              >
-                {{ uniswapDappSharedLogic.tradeContext.fromToken.symbol }}
-              </div>
-            </div>
-            <div class="uni-ic__modal-confirm-swap__input-main__price">
-              <div class="uni-ic__modal-confirm-swap__input-main__price-text">
-                <span
-                  *ngIf="
-                    uniswapDappSharedLogic.tradeContext.quoteDirection ===
-                    'input'
-                  "
-                  >{{
-                    uniswapDappSharedLogic.tradeContext.baseConvertRequest
-                  }}</span
-                >
 
-                <span
-                  *ngIf="
-                    uniswapDappSharedLogic.tradeContext.quoteDirection ===
-                    'output'
-                  "
-                  >{{
-                    uniswapDappSharedLogic.tradeContext.expectedConvertQuote
-                  }}</span
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="uni-ic__modal-confirm-swap__divider uni-ic__theme-panel">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="#565A69"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <line x1="12" y1="5" x2="12" y2="19"></line>
-          <polyline points="19 12 12 19 5 12"></polyline>
-        </svg>
-      </div>
-      <div
-        class="uni-ic__modal-confirm-swap__output-container uni-ic__theme-panel"
-      >
-        <div class="uni-ic__modal-confirm-swap__output">
-          <div class="uni-ic__modal-confirm-swap__output-header">
             <div class="uni-ic__modal-confirm-swap__output-header__text">
               To
             </div>
@@ -138,238 +212,4 @@
                 )
               }}</span>
             </div>
-          </div>
-          <div class="uni-ic__modal-confirm-swap__output-main">
-            <div class="uni-ic__modal-confirm-swap__output-main__symbol">
-              <lib-token-icon
-                classes="uni-ic__modal-confirm-swap__output-main__symbol__image"
-                [tokenImageContext]="
-                  uniswapDappSharedLogic.outputToken!.tokenImageContext
-                "
-              ></lib-token-icon>
-
-              <div
-                class="uni-ic__modal-confirm-swap__output-main__symbol__label"
-              >
-                {{ uniswapDappSharedLogic.tradeContext.toToken.symbol }}
-              </div>
-            </div>
-            <div class="uni-ic__modal-confirm-swap__output-main__price">
-              <div class="uni-ic__modal-confirm-swap__output-main__price-text">
-                <span
-                  *ngIf="
-                    uniswapDappSharedLogic.tradeContext.quoteDirection ===
-                    'input'
-                  "
-                  >{{
-                    uniswapDappSharedLogic.tradeContext.expectedConvertQuote
-                  }}</span
-                >
-
-                <span
-                  *ngIf="
-                    uniswapDappSharedLogic.tradeContext.quoteDirection ===
-                    'output'
-                  "
-                  >{{
-                    uniswapDappSharedLogic.tradeContext.baseConvertRequest
-                  }}</span
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="uni-ic__modal-confirm-swap__price">
-        <div class="uni-ic__modal-confirm-swap__price__title">Price</div>
-        <button class="uni-ic__modal-confirm-swap__price__rate-button">
-          <div class="uni-ic__modal-confirm-swap__price__rate">
-            1
-            {{ uniswapDappSharedLogic.tradeContext.fromToken.symbol }} =
-            {{ uniswapDappSharedLogic.workOutOneEqualTo() }}
-            {{ uniswapDappSharedLogic.tradeContext.toToken.symbol }}
-          </div>
-        </button>
-      </div>
-      <div
-        class="uni-ic__modal-confirm-swap__info-container uni-ic__theme-panel"
-      >
-        <div class="uni-ic__modal-confirm-swap__info">
-          <div class="uni-ic__modal-confirm-swap__info__item">
-            <div class="uni-ic__modal-confirm-swap__info__item__title">
-              <div
-                class="uni-ic__modal-confirm-swap__info__item__title-content"
-              >
-                Liquidity Provider Fee
-              </div>
-            </div>
-            <div class="uni-ic__modal-confirm-swap__info__item__value">
-              {{ uniswapDappSharedLogic.tradeContext.liquidityProviderFee }}
-              {{ uniswapDappSharedLogic.tradeContext.fromToken.symbol }}
-            </div>
-          </div>
-          <div class="uni-ic__modal-confirm-swap__info__item">
-            <div class="uni-ic__modal-confirm-swap__info__item__title">
-              <div
-                class="uni-ic__modal-confirm-swap__info__item__title-content"
-              >
-                Route
-              </div>
-            </div>
-            <div class="uni-ic__modal-confirm-swap__info__item__value">
-              {{ uniswapDappSharedLogic.tradeContext.routeText }}
-            </div>
-          </div>
-          <!-- <div class="uni-ic__modal-confirm-swap__info__item">
-            <div class="uni-ic__modal-confirm-swap__info__item__title">
-              <div
-                class="uni-ic__modal-confirm-swap__info__item__title-content"
-              >
-                Price Impact
-              </div>
-            </div>
-            <div class="uni-ic__modal-confirm-swap__info__item__value">
-              -0.03%
-            </div>
-          </div> -->
-          <div
-            class="uni-ic__modal-confirm-swap__info__item"
-            *ngIf="uniswapDappSharedLogic.tradeContext.minAmountConvertQuote"
-          >
-            <div class="uni-ic__modal-confirm-swap__info__item__title">
-              <div
-                class="uni-ic__modal-confirm-swap__info__item__title-content"
-              >
-                Minimum received
-              </div>
-            </div>
-            <div class="uni-ic__modal-confirm-swap__info__item__value">
-              {{ uniswapDappSharedLogic.tradeContext.minAmountConvertQuote }}
-              {{ uniswapDappSharedLogic.tradeContext.toToken.symbol }}
-            </div>
-          </div>
-          <div
-            class="uni-ic__modal-confirm-swap__info__item"
-            *ngIf="uniswapDappSharedLogic.tradeContext.maximumSent"
-          >
-            <div class="uni-ic__modal-confirm-swap__info__item__title">
-              <div
-                class="uni-ic__modal-confirm-swap__info__item__title-content"
-              >
-                Maximum sent
-              </div>
-            </div>
-            <div class="uni-ic__modal-confirm-swap__info__item__value">
-              {{ uniswapDappSharedLogic.tradeContext.maximumSent }}
-              {{ uniswapDappSharedLogic.tradeContext.fromToken.symbol }}
-            </div>
-          </div>
-          <div class="uni-ic__modal-confirm-swap__info__item">
-            <div class="uni-ic__modal-confirm-swap__info__item__title">
-              <div
-                class="uni-ic__modal-confirm-swap__info__item__title-content"
-              >
-                Slippage tolerance
-              </div>
-            </div>
-            <div class="uni-ic__modal-confirm-swap__info__item__value">
-              {{ uniswapDappSharedLogic.uniswapPairSettings.slippage * 100 }}%
-            </div>
-          </div>
-          <div class="uni-ic__modal-confirm-swap__info__item">
-            <div class="uni-ic__modal-confirm-swap__info__item__title">
-              <div
-                class="uni-ic__modal-confirm-swap__info__item__title-content"
-              >
-                Uniswap version
-              </div>
-            </div>
-            <div class="uni-ic__modal-confirm-swap__info__item__value">
-              {{ uniswapDappSharedLogic.tradeContext.uniswapVersion }}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="uni-ic__modal-confirm-swap__price-updated-container"
-        *ngIf="uniswapDappSharedLogic.newPriceTradeContext"
-      >
-        <div class="uni-ic__modal-confirm-swap__price-updated">
-          <div class="uni-ic__modal-confirm-swap__price-updated__text">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path
-                d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
-              ></path>
-              <line x1="12" y1="9" x2="12" y2="13"></line>
-              <line x1="12" y1="17" x2="12.01" y2="17"></line>
-            </svg>
-            <div
-              class="uni-ic__modal-confirm-swap__price-updated__text-content"
-            >
-              Price Updated
-            </div>
-          </div>
-          <button
-            class="
-              uni-ic__modal-confirm-swap__price-updated__action
-              uni-ic__theme-background-button
-            "
-            (click)="uniswapDappSharedLogic.acceptPriceChange()"
-          >
-            Accept
-          </button>
-        </div>
-      </div>
-      <div class="uni-ic__modal-confirm-swap__output-info-container">
-        <div class="uni-ic__modal-confirm-swap__output-info">
-          <span
-            *ngIf="uniswapDappSharedLogic.tradeContext.minAmountConvertQuote"
-          >
-            Output is estimated. You will receive at least
-            <b
-              >{{ uniswapDappSharedLogic.tradeContext.minAmountConvertQuote }}
-              {{ uniswapDappSharedLogic.tradeContext.toToken.symbol }}</b
-            >
-            or the transaction will revert.
-          </span>
-          <span *ngIf="uniswapDappSharedLogic.tradeContext.maximumSent">
-            Input is estimated. You will sell at most
-            <b
-              >{{ uniswapDappSharedLogic.tradeContext.maximumSent }}
-              {{ uniswapDappSharedLogic.tradeContext.fromToken.symbol }}</b
-            >
-            or the transaction will revert.
-          </span>
-        </div>
-      </div>
-    </div>
-
-    <div class="uni-ic__modal-confirm-swap__action-container">
-      <div class="uni-ic__modal-confirm-swap__action">
-        <button
-          id="confirm-swap-or-send"
-          class="
-            uni-ic__modal-confirm-swap__action__button
-            uni-ic__theme-background-button
-          "
-          [disabled]="uniswapDappSharedLogic.newPriceTradeContext"
-          (click)="uniswapDappSharedLogic.swapTransaction()"
-        >
-          <div class="uni-ic__modal-confirm-swap__action__button-text">
-            Confirm Swap
-          </div>
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+-->

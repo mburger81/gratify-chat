@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   UniswapDappSharedLogic,
   Utils as UniswapUtils,
@@ -11,7 +11,19 @@ import {
 })
 export class ConfirmSwapModalComponent {
   @Input() public uniswapDappSharedLogic!: UniswapDappSharedLogic;
+  @Output() public shouldDismiss = new EventEmitter<void>();
+  @Output() public swap = new EventEmitter<void>();
 
   public utils = UniswapUtils;
   constructor() {}
+
+
+  async swapTransaction(): Promise<void> {
+    this.swap.next();
+    await this.uniswapDappSharedLogic.swapTransaction();
+  }
+
+  dismiss() {
+    this.shouldDismiss.next();
+  }
 }

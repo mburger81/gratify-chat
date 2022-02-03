@@ -354,8 +354,10 @@ export class UniswapDappSharedLogic {
    * Show transaction modal
    */
   public showTransaction(): void {
-    this._theming.hideConfirmSwap();
-    this._theming.showTransaction();
+    // mburger
+    // this._theming.hideConfirmSwap();
+    // mburger
+    // this._theming.showTransaction();
   }
 
   /**
