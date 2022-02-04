@@ -3,20 +3,6 @@
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "types": [],
-    // not sure why nx is using ES2017
-    "target": "ES2017",
-    "paths": {
-      "crypto": ["./node_modules/crypto-browserify"],
-      "stream": ["./node_modules/stream-browserify"],
-      "assert": ["./node_modules/assert"],
-      "http": ["./node_modules/stream-http"],
-      "https": ["./node_modules/https-browserify"],
-      "os": ["./node_modules/os-browserify"],
-      "process": ["./node_modules/process/browser"],
-      "simple-uniswap-sdk": ["libs/simple-uniswap-sdk/src/index.ts"],
-      "@gratify-chat/swap": ["libs/swap/src/index.ts"],
-      "uniswap-dapp-integration-shared": ["libs/uniswap-dapp-integration-shared/src/index.ts"]
-    },
     // custom
     "noImplicitAny": false,
     "noPropertyAccessFromIndexSignature": false,
