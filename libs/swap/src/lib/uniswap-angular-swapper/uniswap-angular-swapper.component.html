@@ -1,5 +1,4 @@
 <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
-{{ loading }}
 <ion-grid *ngIf="!loading">
   <ion-row class="ion-justify-content-center">
     <ion-card *ngIf="uniswapDappSharedLogic.supportedNetwork">
@@ -276,17 +275,14 @@
       </ion-card-content>
     </ion-card>
 
-    A
-
-    <ion-card>
+    <ion-card *ngIf="!uniswapDappSharedLogic.supportedNetwork">
       <ion-card-content>
-      AAAAAA
+        <lib-error error="Chain id {{ uniswapDappSharedLogic?.chainId }} is a unsupported network."></lib-error>
       </ion-card-content>
-      <!-- <lib-error error="Chain id {{ uniswapDappSharedLogic?.chainId }} is a unsupported network."></lib-error> -->
     </ion-card>
   </ion-row>
 </ion-grid>
-B
+
 
 <ion-modal
     [isOpen]="isTokenSelectorVisible"
