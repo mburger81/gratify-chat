@@ -59,8 +59,6 @@ export class TradeComponent implements OnDestroy, OnInit {
 
   private async init(testnet: boolean,  grf: boolean) {
 
-    if (this.wallet.chainId === 56 && grf === false) {
-
     // // Generate Uniswap pair PCK
     // const pair = new UniswapPair({
     //   fromTokenContractAddress: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c", // BNB
@@ -104,6 +102,33 @@ export class TradeComponent implements OnDestroy, OnInit {
     // const x = p.trade('10');
     // console.log('x', x);
 
+    let providerUrl;
+    let cloneUniswapContractDetails;
+    let nameNetwork = "";
+    let multicallContractAddress = "";
+
+    if (this.wallet.chainId === 56) {
+
+      providerUrl = 'https://bsc-dataseed1.binance.org:443/';
+      cloneUniswapContractDetails = {
+        v2Override: {
+          routerAddress: "0x10ED43C718714eb63d5aA57B78B54704E256024E",
+          factoryAddress: "0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73",
+          pairAddress: "0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73"
+        }
+      };
+      nameNetwork = "BSC Mainnet";
+      multicallContractAddress = "0x65e9a150e06c84003d15ae6a060fc2b1b393342c";
+
+    } else if (this.wallet.chainId === 97) {
+
+      providerUrl = '';
+      // cloneUniswapContractDetails =
+      nameNetwork = "BSC Testnet";
+      // multicallContractAddress = ""
+
+    }
+
 
     this.uniswapDappSharedLogicContext = {
 
@@ -120,23 +145,17 @@ export class TradeComponent implements OnDestroy, OnInit {
       ],
       ethereumAddress: this.wallet.address,
       ethereumProvider: this.web3Service.provider,
-      providerUrl: 'https://bsc-dataseed1.binance.org:443/',
+      providerUrl: providerUrl,
       settings: {
         slippage: 0.01  ,
         deadlineMinutes: 20,
         disableMultihops: false,
         uniswapVersions: [ UniswapVersion.v2 ],
-        cloneUniswapContractDetails: {
-          v2Override: {
-            routerAddress: "0x10ED43C718714eb63d5aA57B78B54704E256024E",
-            factoryAddress: "0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73",
-            pairAddress: "0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73"
-          }
-        },
+        cloneUniswapContractDetails: cloneUniswapContractDetails,
         customNetwork: {
-          nameNetwork: !testnet ? "BSC Mainnet" : "BSC Testnet",
+          nameNetwork: nameNetwork,
           // https://github.com/makerdao/multicall
-          multicallContractAddress: '0x65e9a150e06c84003d15ae6a060fc2b1b393342c',
+          multicallContractAddress: multicallContractAddress,
           // !testnet
           //   ? "0x41263cba59eb80dc200f3e2544eda4ed6a90e76c"
           //   : "0xae11C5B5f29A6a25e955F0CB8ddCc416f522AF5C",
@@ -145,23 +164,22 @@ export class TradeComponent implements OnDestroy, OnInit {
             symbol: "BNB"
           },
           nativeWrappedTokenInfo: {
-            chainId: !testnet ? 56 : 97,
+            chainId: this.wallet.chainId,
             contractAddress: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
             decimals: 18,
             symbol: "WBNB",
             name: "Wrapped BNB"
           }
         },
-      },
-      theming: {
-        backgroundColor: 'red',
-        button: { textColor: 'white', backgroundColor: 'blue' },
-        panel: { textColor: 'black', backgroundColor: 'yellow' },
-        textColor: 'orange',
       }
+      // ,
+      // theming: {
+      //   backgroundColor: 'red',
+      //   button: { textColor: 'white', backgroundColor: 'blue' },
+      //   panel: { textColor: 'black', backgroundColor: 'yellow' },
+      //   textColor: 'orange',
+      // }
     };
-
-    }
 
 
 
