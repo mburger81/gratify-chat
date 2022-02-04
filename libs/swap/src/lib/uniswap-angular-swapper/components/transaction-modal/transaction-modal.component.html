@@ -1,164 +1,157 @@
-<ion-header>
+<ion-header translucent="true">
   <ion-toolbar>
-    <ion-title>Confirm swap</ion-title>
+    <ion-title>Transaction</ion-title>
     <ion-buttons slot="end">
+      <!-- *ngIf="uniswapDappSharedLogic.miningTransaction?.status === transactionStatus.completed" -->
       <ion-button
-          *ngIf="uniswapDappSharedLogic.miningTransaction?.status === transactionStatus.completed"
-          (click)="uniswapDappSharedLogic.hideTransaction()"
+          (click)="hideTransaction()"
       >
         <ion-icon name="close-sharp"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+<ion-progress-bar
+    *ngIf="
+      uniswapDappSharedLogic.miningTransaction?.status !== transactionStatus.completed &&
+      uniswapDappSharedLogic.miningTransaction?.status !== transactionStatus.rejected
+    "
+    type="indeterminate"
+>
+</ion-progress-bar>
 
-<ion-content class="ion-justify-content-center">
-      <ion-card class="ion-justify-content-center"
-        *ngIf="
-          uniswapDappSharedLogic.miningTransaction?.status ===
-            transactionStatus.waitingForConfirmation ||
-          uniswapDappSharedLogic.miningTransaction?.status ===
-            transactionStatus.mining ||
-          uniswapDappSharedLogic.miningTransaction?.status ===
-            transactionStatus.completed
-        "
-      >
-        <div
-          *ngIf="
-            uniswapDappSharedLogic.miningTransaction?.status !==
-            transactionStatus.completed
-          "
-        >
-          <svg
-            class="uni-ic__modal-transaction__state__loading-spinner"
-            width="94"
-            height="94"
-            viewBox="0 0 94 94"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M92 47C92 22.1472 71.8528 2 47 2C22.1472 2 2 22.1472 2 47C2 71.8528 22.1472 92 47 92"
-              stroke="#2172E5"
-              stroke-width="3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </div>
-        <div>
-          <div>
-            <span
+<ion-content>
+  <ion-grid style="height: 100% !important; display: flex;" class="ion-justify-content-center ion-align-items-center">
+    <ion-card
+      *ngIf="
+        uniswapDappSharedLogic.miningTransaction?.status ===
+          transactionStatus.waitingForConfirmation ||
+        uniswapDappSharedLogic.miningTransaction?.status ===
+          transactionStatus.mining ||
+        uniswapDappSharedLogic.miningTransaction?.status ===
+          transactionStatus.completed
+      "
+    >
+      <ion-card-content>
+        <ion-grid>
+          <ion-row class="ion-justify-content-center">
+            <ion-text
               *ngIf="
                 uniswapDappSharedLogic.miningTransaction?.status ===
                 transactionStatus.waitingForConfirmation
               "
-              >Waiting For Confirmation</span
             >
-            <span
+              <h1>Waiting For Confirmation</h1>
+            </ion-text>
+            <ion-text
               *ngIf="
                 uniswapDappSharedLogic.miningTransaction?.status ===
                 transactionStatus.mining
               "
-              >Mining</span
             >
+              <h1>Mining</h1>
+            </ion-text>
 
-            <span
+            <ion-text
               *ngIf="
                 uniswapDappSharedLogic.miningTransaction?.status ===
                 transactionStatus.completed
               "
-              >Swap complete</span
             >
-          </div>
-          <div>
-            <div>
-              <span
-                *ngIf="
-                  uniswapDappSharedLogic.miningTransaction?.status ===
-                    transactionStatus.waitingForConfirmation ||
-                  uniswapDappSharedLogic.miningTransaction?.status ===
-                    transactionStatus.mining
-                "
-                >Swapping</span
-              >
-              <span
-                *ngIf="
-                  uniswapDappSharedLogic.miningTransaction?.status ===
-                  transactionStatus.completed
-                "
-                >Swapped</span
-              >
-              <span
-                *ngIf="
-                  uniswapDappSharedLogic.tradeContext?.quoteDirection ===
-                  tradeDirection.input
-                "
-              >
-                {{ uniswapDappSharedLogic.tradeContext?.baseConvertRequest }}
-                {{ uniswapDappSharedLogic.tradeContext?.fromToken?.symbol }} for
-                {{ uniswapDappSharedLogic.tradeContext?.expectedConvertQuote }}
-                {{ uniswapDappSharedLogic.tradeContext?.toToken?.symbol }}
-              </span>
+              <h1>Swap complete</h1>
+            </ion-text>
+          </ion-row>
+          <ion-row class="ion-justify-content-center">
+            <ion-text
+              *ngIf="
+                uniswapDappSharedLogic.miningTransaction?.status ===
+                  transactionStatus.waitingForConfirmation ||
+                uniswapDappSharedLogic.miningTransaction?.status ===
+                  transactionStatus.mining
+              "
+            >
+              <h1>Swapping&nbsp;</h1>
+            </ion-text>
+            <ion-text
+              *ngIf="
+                uniswapDappSharedLogic.miningTransaction?.status ===
+                transactionStatus.completed
+              "
+            >
+              <h1>Swapped&nbsp;</h1>
+            </ion-text>
+            <ion-text
+              *ngIf="
+                uniswapDappSharedLogic.tradeContext?.quoteDirection ===
+                tradeDirection.input
+              "
+            >
+              <h1>{{ uniswapDappSharedLogic.tradeContext?.baseConvertRequest }}
+                  {{ uniswapDappSharedLogic.tradeContext?.fromToken?.symbol }} for
+                  {{ uniswapDappSharedLogic.tradeContext?.expectedConvertQuote }}
+                  {{ uniswapDappSharedLogic.tradeContext?.toToken?.symbol }}</h1>
+            </ion-text>
 
-              <span
-                *ngIf="
-                  uniswapDappSharedLogic.tradeContext?.quoteDirection ===
-                  tradeDirection.output
-                "
-              >
-                {{ uniswapDappSharedLogic.tradeContext?.expectedConvertQuote }}
-                {{ uniswapDappSharedLogic.tradeContext?.fromToken?.symbol }} for
-                {{ uniswapDappSharedLogic.tradeContext?.baseConvertRequest }}
-                {{ uniswapDappSharedLogic.tradeContext?.toToken?.symbol }}
-              </span>
-            </div>
-          </div>
-          <div>
-            <span
+            <ion-text
+              *ngIf="
+                uniswapDappSharedLogic.tradeContext?.quoteDirection ===
+                tradeDirection.output
+              "
+            >
+              <h1>{{ uniswapDappSharedLogic.tradeContext?.expectedConvertQuote }}
+                  {{ uniswapDappSharedLogic.tradeContext?.fromToken?.symbol }} for
+                  {{ uniswapDappSharedLogic.tradeContext?.baseConvertRequest }}
+                  {{ uniswapDappSharedLogic.tradeContext?.toToken?.symbol }}</h1>
+            </ion-text>
+          </ion-row>
+          <ion-row class="ion-justify-content-center">
+            <ion-text
               *ngIf="
                 uniswapDappSharedLogic.miningTransaction?.status ===
                 transactionStatus.waitingForConfirmation
               "
-              >Confirm this transaction in your wallet</span
             >
-            <button
+              <h1>Confirm this transaction in your wallet</h1>
+            </ion-text>
+            <ion-button
               *ngIf="
                 uniswapDappSharedLogic.miningTransaction?.status ===
                   transactionStatus.mining ||
                 uniswapDappSharedLogic.miningTransaction?.status ===
                   transactionStatus.completed
               "
+              expand="block"
               (click)="uniswapDappSharedLogic.viewOnEtherscan()"
             >
               View tx on etherscan
-            </button>
-          </div>
-        </div>
-      </ion-card>
-
-  <ion-card class="ion-justify-content-center"
-    *ngIf="uniswapDappSharedLogic.miningTransaction?.status === transactionStatus.rejected">
-    <ion-card-content class="ion-justify-content-center">
-      <ion-grid class="ion-justify-content-center">
-        <ion-row class="ion-justify-content-center">
-          <ion-col class="ion-justify-content-center">
-            <ion-icon name="warning-sharp"></ion-icon>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-label>Transaction rejected.</ion-label>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-button (click)="uniswapDappSharedLogic.hideTransaction()">
-              <ion-label>Dismiss</ion-label>
             </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card-content>
-  </ion-card>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card
+        *ngIf="uniswapDappSharedLogic.miningTransaction?.status === transactionStatus.rejected">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row class="ion-justify-content-center">
+            <ion-icon name="warning-sharp" style="font-size: 64px;" ></ion-icon>
+          </ion-row>
+          <ion-row class="ion-justify-content-center">
+            <ion-text>
+              <h1>Transaction rejected.</h1>
+            </ion-text>
+          </ion-row>
+          <ion-row class="ion-justify-content-center">
+            <ion-button
+                expand="block"
+                (click)="hideTransaction()"
+            >
+              Dismiss
+            </ion-button>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </ion-grid>
 </ion-content>

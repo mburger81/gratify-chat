@@ -110,11 +110,13 @@ export class TradeComponent implements OnDestroy, OnInit {
       supportedNetworkTokens: [
         {
           chainId: 56,
-          defaultInputToken: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c', // BNB
+          defaultInputToken: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c_ETH', // BNB
           defaultOutputToken: '0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82', // CAKE
           supportedTokens: [
             { contractAddress: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c' }, // BNB
             { contractAddress: '0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82' }, // CAKE
+            { contractAddress: '0x1fd13bb00d80986adc121d5bef287bf2ed5c31af' }, // GRY
+            { contractAddress: '0xc05a6f6424e7832bad5438cc6231d6559e833ca8' } // LZCHEEMS
           ]
         }
       ],
@@ -122,7 +124,7 @@ export class TradeComponent implements OnDestroy, OnInit {
       ethereumProvider: this.web3Service.provider,
       providerUrl: 'https://bsc-dataseed1.binance.org:443/',
       settings: {
-        slippage: 0.01  ,
+        slippage: 0.01,
         deadlineMinutes: 20,
         disableMultihops: false,
         uniswapVersions: [ UniswapVersion.v2 ],

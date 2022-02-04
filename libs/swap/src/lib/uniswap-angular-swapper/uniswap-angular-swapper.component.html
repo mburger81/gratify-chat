@@ -262,7 +262,7 @@
 <div class="ion-justify-content-center">
 
 
-  <ng-container *ngIf="!loading && false">
+  <ng-container *ngIf="!loading">
     <ion-grid>
       <!-- <ng-template *ngIf="uniswapDappSharedLogic.supportedNetwork"> -->
         <ng-container
@@ -326,6 +326,7 @@
   <ng-template>
     <lib-transaction-modal
       [uniswapDappSharedLogic]="uniswapDappSharedLogic"
+      (shouldDismiss)="hideTransaction()"
     >
     </lib-transaction-modal>
   </ng-template>

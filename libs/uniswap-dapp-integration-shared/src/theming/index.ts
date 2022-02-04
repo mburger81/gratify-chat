@@ -107,17 +107,19 @@ export class Theming {
    */
   public showTokenSelector(): void {
     this.hideSettings();
-    const modal = document.getElementById('uni-ic__modal-token')!;
-    modal.style.display = 'block';
-    this.renderModalWithCorrectPosition(modal, 100);
+    // mburger
+    // const modal = document.getElementById('uni-ic__modal-token')!;
+    // modal.style.display = 'block';
+    // this.renderModalWithCorrectPosition(modal, 100);
   }
 
   /**
    * Hide the token selector
    */
   public hideTokenSelector(): void {
-    const modal = document.getElementById('uni-ic__modal-token')!;
-    modal.style.display = 'none';
+    // mburger
+    // const modal = document.getElementById('uni-ic__modal-token')!;
+    // modal.style.display = 'none';
   }
 
   /**
@@ -125,44 +127,49 @@ export class Theming {
    */
   public showConfirmSwap(): void {
     this.hideSettings();
-    const modal = document.getElementById('uni-ic__modal-confirm-swap')!;
-    modal.style.display = 'block';
-    this.renderModalWithCorrectPosition(modal, 200);
+    // mburger
+    // const modal = document.getElementById('uni-ic__modal-confirm-swap')!;
+    // modal.style.display = 'block';
+    // this.renderModalWithCorrectPosition(modal, 200);
   }
 
   /**
    * Hide the confirm swap modal
    */
   public hideConfirmSwap(): void {
-    const modal = document.getElementById('uni-ic__modal-confirm-swap')!;
-    modal.style.display = 'none';
+    // mburger
+    // const modal = document.getElementById('uni-ic__modal-confirm-swap')!;
+    // modal.style.display = 'none';
   }
 
   /**
    * Show the transaction
    */
   public showTransaction(): void {
-    const modal = document.getElementById('uni-ic__modal-transaction')!;
-    modal.style.display = 'block';
-    this.renderModalWithCorrectPosition(modal);
+    // mburger
+    // const modal = document.getElementById('uni-ic__modal-transaction')!;
+    // modal.style.display = 'block';
+    // this.renderModalWithCorrectPosition(modal);
   }
 
   /**
    * Hide the transaction
    */
   public hideTransaction(): void {
-    const modal = document.getElementById('uni-ic__modal-transaction')!;
-    modal.style.display = 'none';
+    // mburger
+    // const modal = document.getElementById('uni-ic__modal-transaction')!;
+    // modal.style.display = 'none';
   }
 
   /**
    * Hide the settings
    */
   public hideSettings(): void {
-    const settingsElement = document.getElementsByClassName(
-      'uni-ic__settings-container',
-    )[0];
-    settingsElement.classList.add('uni-ic-hidden');
+    // mburger
+    // const settingsElement = document.getElementsByClassName(
+    //   'uni-ic__settings-container',
+    // )[0];
+    // settingsElement.classList.add('uni-ic-hidden');
   }
 
   /**

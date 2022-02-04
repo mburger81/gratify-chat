@@ -1,5 +1,4 @@
-import { Component, ContentChild, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { IonModal } from '@ionic/angular';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   ErrorCodes,
   SelectTokenActionFrom,

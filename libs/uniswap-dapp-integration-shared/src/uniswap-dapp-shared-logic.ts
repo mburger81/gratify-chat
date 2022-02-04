@@ -328,16 +328,14 @@ export class UniswapDappSharedLogic {
   public hideTokenSelector(): void {
     this.selectorOpenFrom = undefined;
     this.currentTokenSearch = undefined;
-    // mburger
-    // this._theming.hideTokenSelector();
+    this._theming.hideTokenSelector();
   }
 
   /**
    * Show the confirm swap modal
    */
   public showConfirmSwap(): void {
-    // mburger
-    // this._theming.showConfirmSwap();
+    this._theming.showConfirmSwap();
     this._confirmSwapOpened = true;
   }
 
@@ -354,10 +352,8 @@ export class UniswapDappSharedLogic {
    * Show transaction modal
    */
   public showTransaction(): void {
-    // mburger
-    // this._theming.hideConfirmSwap();
-    // mburger
-    // this._theming.showTransaction();
+    this._theming.hideConfirmSwap();
+    this._theming.showTransaction();
   }
 
   /**
@@ -564,6 +560,7 @@ export class UniswapDappSharedLogic {
    */
   public searchToken(search: string): SupportedTokenResult[] {
     this.currentTokenSearch = search;
+    console.log('xxxxxxx', this.supportedTokenBalances);
 
     this.supportedTokenBalances = this._tokenService.searchToken(
       search,
