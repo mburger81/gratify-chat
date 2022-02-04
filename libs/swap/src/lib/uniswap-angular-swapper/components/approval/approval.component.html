@@ -1,49 +1,52 @@
-<button
-  class="uni-ic__swap-allow uni-ic__theme-background-button"
-  *ngIf="
-    uniswapDappSharedLogic.tradeContext?.approvalTransaction &&
-    uniswapDappSharedLogic.tradeContext?.fromBalance?.hasEnough
-  "
-  (click)="uniswapDappSharedLogic.approveAllowance()"
-  [disabled]="uniswapDappSharedLogic.transactionInProcess()"
+<ion-button
+    size="large"
+    expand="block"
+    (click)="uniswapDappSharedLogic.approveAllowance()"
+    [disabled]="uniswapDappSharedLogic.transactionInProcess()"
 >
   <lib-token-icon
-    classes="uni-ic__swap-allow-icon"
     [tokenImageContext]="uniswapDappSharedLogic.inputToken.tokenImageContext"
-  ></lib-token-icon>
+  >
+  </lib-token-icon>
 
-  <span
+  <ion-text
+    class="ion-text-wrap"
     *ngIf="
       uniswapDappSharedLogic.miningTransaction === undefined ||
       uniswapDappSharedLogic.miningTransaction?.status ===
         transactionStatus.rejected
     "
-    >You must give the Uniswap smart contract permisson to use your
-    {{ uniswapDappSharedLogic.tradeContext!.fromToken.symbol }}. You only have
-    to do this once per token per uniswap version. Click here to approve the
-    permissons.
-  </span>
+    >
+      <h3>You must give the Uniswap smart contract permisson to use your
+      {{ uniswapDappSharedLogic.tradeContext!.fromToken.symbol }}. You only have
+      to do this once per token per uniswap version. Click here to approve the
+      permissons.</h3>
+  </ion-text>
 
-  <span
+  <ion-text
+    class="ion-text-wrap"
     *ngIf="
       uniswapDappSharedLogic.miningTransaction?.status ===
       transactionStatus.waitingForConfirmation
     "
-    >Waiting for confirmation....</span
   >
-  <span
+    <h3>Waiting for confirmation....</h3>
+  </ion-text>
+  <ion-text
+    class="ion-text-wrap"
     *ngIf="
       uniswapDappSharedLogic.miningTransaction?.status ===
       transactionStatus.mining
     "
-    >Waiting for your transaction to be mined...
-    <u
-      ><a
-        class="uni-ic__swap-allow-etherscan"
-        (click)="uniswapDappSharedLogic.viewOnEtherscan()"
-      >
-        View tx on etherscan
-      </a>
-    </u>
-  </span>
-</button>
+  >
+    <h3>Waiting for your transaction to be mined...
+      <u
+        ><a
+          (click)="uniswapDappSharedLogic.viewOnEtherscan()"
+        >
+          View tx on etherscan
+        </a>
+      </u>
+    </h3>
+  </ion-text>
+</ion-button>

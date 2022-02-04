@@ -1,13 +1,14 @@
 <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
-<ion-grid>
+{{ loading }}
+<ion-grid *ngIf="!loading">
   <ion-row class="ion-justify-content-center">
-    <ion-card *ngIf="!loading">
+    <ion-card *ngIf="uniswapDappSharedLogic.supportedNetwork">
       <lib-header
         [uniswapDappSharedLogic]="uniswapDappSharedLogic"
         (disableMultihopsCompleted)="disableMultihopsCompleted($event)">
       </lib-header>
 
-      <ion-card-content *ngIf="uniswapDappSharedLogic.supportedNetwork">
+      <ion-card-content>
         <ion-card color="light">
           <ion-card-content>
             <ion-item color="light">
@@ -212,6 +213,24 @@
             </ion-item>
           </ion-card-content>
         </ion-card>
+        <lib-swap-quote-info
+            *ngIf="uniswapDappSharedLogic.tradeContext && !noLiquidityFound"
+            [uniswapDappSharedLogic]="uniswapDappSharedLogic"
+        >
+        </lib-swap-quote-info>
+        <ion-item
+            *ngIf="
+              uniswapDappSharedLogic.tradeContext &&
+              !noLiquidityFound &&
+              uniswapDappSharedLogic.tradeContext?.approvalTransaction &&
+              uniswapDappSharedLogic.tradeContext?.fromBalance?.hasEnough
+            "
+        >
+          <lib-approval
+              [uniswapDappSharedLogic]="uniswapDappSharedLogic"
+          >
+          </lib-approval>
+        </ion-item>
         <ion-button
           (click)="showConfirmSwap()"
           expand="block"
@@ -256,36 +275,18 @@
         </ion-button>
       </ion-card-content>
     </ion-card>
+
+    A
+
+    <ion-card>
+      <ion-card-content>
+      AAAAAA
+      </ion-card-content>
+      <!-- <lib-error error="Chain id {{ uniswapDappSharedLogic?.chainId }} is a unsupported network."></lib-error> -->
+    </ion-card>
   </ion-row>
 </ion-grid>
-
-<div class="ion-justify-content-center">
-
-
-  <ng-container *ngIf="!loading">
-    <ion-grid>
-      <!-- <ng-template *ngIf="uniswapDappSharedLogic.supportedNetwork"> -->
-        <ng-container
-          *ngIf="uniswapDappSharedLogic.tradeContext && !noLiquidityFound"
-        >
-          <lib-swap-quote-info
-            [uniswapDappSharedLogic]="uniswapDappSharedLogic"
-          ></lib-swap-quote-info>
-
-          <lib-approval
-            [uniswapDappSharedLogic]="uniswapDappSharedLogic"
-          ></lib-approval>
-        </ng-container>
-      <!-- </ng-template> -->
-    </ion-grid>
-    <ion-grid>
-      <ion-row *ngIf="!uniswapDappSharedLogic.supportedNetwork">
-        <lib-error error="Chain id {{ uniswapDappSharedLogic?.chainId }} is a unsupported network."></lib-error>
-      </ion-row>
-    </ion-grid>
-  </ng-container>
-</div>
-
+B
 
 <ion-modal
     [isOpen]="isTokenSelectorVisible"
