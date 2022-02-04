@@ -5,11 +5,13 @@ import {
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
+import { InputCustomEvent } from '@ionic/angular';
 import { BigNumber } from 'bignumber.js';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import {
   ErrorCodes,
+  SelectTokenActionFrom,
   SwapSwitchResponse,
   TradeContext,
   TradeDirection,
@@ -54,6 +56,11 @@ export class UniswapAngularSwapperComponent implements OnInit, OnDestroy {
 
   // milliseconds
   private readonly DEBOUNCE_DELAY = 250;
+
+
+  isTokenSelectorVisible = false;
+  isConfirmSwapVisible = false;
+  isTransactionVisible = false;
 
   constructor() {}
 
@@ -183,6 +190,8 @@ export class UniswapAngularSwapperComponent implements OnInit, OnDestroy {
       noLiquidityFound,
       this.uniswapDappSharedLogic.tradeContext?.quoteDirection,
     );
+    // mburger
+    this.hideTokenSelectorl();
   }
 
   /**
@@ -294,4 +303,65 @@ export class UniswapAngularSwapperComponent implements OnInit, OnDestroy {
   //   this.outputValue =
   //     this.uniswapDappSharedLogic.tradeContext!.expectedConvertQuote;
   // }
+
+  onInput(event: Event) {
+    // console.log('UniswapAngularSwapperComponent#onInput; event', event);
+
+    const element = (<InputCustomEvent> event).target;
+
+    if (!element || element === undefined || !element.value || !element.maxlength) {
+      return;
+    }
+
+    if (new String(element.value).length > element.maxlength) {
+      element.value = new String(element.value).slice(0, element.maxlength);
+    }
+
+  }
+
+
+  showTokenSelector(typeS: string) {
+    const type = typeS === 'input' ? SelectTokenActionFrom.input : SelectTokenActionFrom.output
+    this.uniswapDappSharedLogic.selectorOpenFrom = type;
+    this.uniswapDappSharedLogic.selectorOpenFrom$.next(this.uniswapDappSharedLogic.selectorOpenFrom);
+    this.isTokenSelectorVisible = true;
+  }
+
+  hideTokenSelectorl() {
+    this.isTokenSelectorVisible = false;
+  }
+
+  tokenSelectorDismissed() {
+    this.hideTokenSelectorl();
+  }
+
+  showConfirmSwap() {
+    this.uniswapDappSharedLogic.showConfirmSwap();
+    this.isConfirmSwapVisible = true;
+  }
+
+  hideConfirmSwap() {
+    this.isConfirmSwapVisible = false;
+  }
+
+  confirmSwapDismissed() {
+    this.hideConfirmSwap();
+  }
+
+  swap() {
+    this.hideConfirmSwap();
+    this.showTransaction();
+  }
+
+  private showTransaction() {
+    this.isTransactionVisible = true;
+  }
+
+  hideTransaction() {
+    this.isTransactionVisible = false;
+  }
+
+  transactionDismissed() {
+    this.hideTransaction();
+  }
 }

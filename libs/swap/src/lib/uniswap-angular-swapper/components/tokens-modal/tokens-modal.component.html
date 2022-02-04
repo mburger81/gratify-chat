@@ -1,88 +1,38 @@
-<div
-  id="uni-ic__modal-token"
-  class="uni-ic__modal"
-  *ngIf="uniswapDappSharedLogic.supportedNetwork"
->
-  <div
-    class="uni-ic__modal__content uni-ic__modal-tokens uni-ic__theme-background"
-  >
-    <span
-      class="uni-ic__modal__close"
-      (click)="uniswapDappSharedLogic.hideTokenSelector()"
-      >&times;</span
-    >
-    <p class="uni-ic__modal-tokens-title">Select a token</p>
-    <div class="uni-ic__modal-tokens-search">
-      <input
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Select a token</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close-sharp"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar
         type="text"
         placeholder="Search name or paste address"
-        autocomplete="off"
-        class="uni-ic__modal-tokens-search__input"
         [ngModel]="searchToken"
         (ngModelChange)="uniswapDappSharedLogic.searchToken($event)"
-      />
-    </div>
+    >
+    </ion-searchbar>
+  </ion-toolbar>
+</ion-header>
 
-    <div style="flex: 1 1 0%; position: relative">
-      <div style="overflow: visible; height: 0px">
-        <div
-          style="
-            position: relative;
-            height: 210px;
-            width: 100%;
-            overflow: auto;
-            will-change: transform;
-            direction: ltr;
-          "
-        >
-          <div style="height: 100%; width: 100%">
-            <div
-              *ngFor="
-                let token of uniswapDappSharedLogic.supportedTokenBalances
-              "
-              (click)="changeSelectToken(token.contractAddress)"
-              class="uni-ic__modal-tokens-item-container"
-              [ngClass]="{
-                selected:
-                  (token.contractAddress ===
-                    uniswapDappSharedLogic.inputToken.contractAddress &&
-                    uniswapDappSharedLogic.selectorOpenFrom === 'input') ||
-                  (token.contractAddress ===
-                    uniswapDappSharedLogic.outputToken?.contractAddress &&
-                    uniswapDappSharedLogic.selectorOpenFrom === 'output')
-              }"
-            >
-              <div class="uni-ic__modal-tokens-item" *ngIf="token.canShow">
-                <lib-token-icon
-                  classes="uni-ic__modal-tokens-item-icon"
-                  [tokenImageContext]="token.tokenImageContext"
-                ></lib-token-icon>
-
-                <div class="uni-ic__modal-tokens-item-content">
-                  <div class="uni-ic__modal-tokens-item-content-symbol">
-                    {{ token.symbol }}
-                  </div>
-                  <div class="uni-ic__modal-tokens-item-content-name">
-                    {{ token.name }}
-                  </div>
-                </div>
-                <span></span>
-                <div class="uni-ic__modal-tokens-item-balance-content">
-                  <div class="uni-ic__modal-tokens-item-balance-content-value">
-                    {{ utils.toPrecision(token.balance) }}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="resize-triggers">
-        <div class="expand-trigger">
-          <div style="width: 419px; height: 211px"></div>
-        </div>
-        <div class="contract-trigger"></div>
-      </div>
-    </div>
-  </div>
-</div>
+<ion-content>
+  <ion-list>
+    <ion-item
+        *ngFor="let token of uniswapDappSharedLogic.supportedTokenBalances"
+        button
+        [ngClass]="{'ion-hide' : !token.canShow}"
+        (click)="changeSelectToken(token.contractAddress)"
+    >
+      <ion-avatar slot="start">
+        <ion-icon src="{{ token.tokenImageContext.image }} "></ion-icon>
+      </ion-avatar>
+      <ion-label>
+        <h2>{{ token.symbol }}</h2>
+        <p>{{ token.name }}</p>
+      </ion-label>
+      <ion-label slot="end">{{ utils.toPrecision(token.balance) }}</ion-label>
+    </ion-item>
+</ion-list>

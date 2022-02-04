@@ -560,6 +560,7 @@ export class UniswapDappSharedLogic {
    */
   public searchToken(search: string): SupportedTokenResult[] {
     this.currentTokenSearch = search;
+    console.log('xxxxxxx', this.supportedTokenBalances);
 
     this.supportedTokenBalances = this._tokenService.searchToken(
       search,

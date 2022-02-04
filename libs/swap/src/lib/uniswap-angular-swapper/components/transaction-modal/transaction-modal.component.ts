@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   TradeDirection,
   TransactionStatus,
@@ -12,8 +12,16 @@ import {
 })
 export class TransactionModalComponent {
   @Input() public uniswapDappSharedLogic!: UniswapDappSharedLogic;
+  @Output() public shouldDismiss = new EventEmitter<void>();
 
   public transactionStatus = TransactionStatus;
   public tradeDirection = TradeDirection;
   constructor() {}
+
+
+
+  hideTransaction(): void {
+    this.uniswapDappSharedLogic.hideTransaction();
+    this.shouldDismiss.emit();
+  }
 }
