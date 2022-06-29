@@ -33,6 +33,7 @@ export class Web3Service {
             rpc: {
               56: 'https://bsc-dataseed.binance.org',
               97: 'https://data-seed-prebsc-1-s1.binance.org:8545',
+              137: 'https://rpc-mainnet.maticvigil.com/'
             }
           }
         }
@@ -70,14 +71,14 @@ export class Web3Service {
 
     if (this.provider) {
       // Subscribe to accounts change
-      this.provider.on("accountsChanged", (accounts) => {
+      this.provider.on("accountsChanged", (accounts: string[]) => {
         // console.log("Web3Service#initProvider; accounts:", accounts);
 
         this.fetchAccountData();
       });
 
       // Subscribe to chainId change
-      this.provider.on("chainChanged", (chainId) => {
+      this.provider.on("chainChanged", (chainId: number) => {
         // console.log("Web3Service#initProvider; chainId:", chainId);
 
         this.fetchAccountData();
