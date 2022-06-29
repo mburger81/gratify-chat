@@ -104,8 +104,7 @@ export class TradeComponent implements OnDestroy, OnInit {
 
     let providerUrl;
     let cloneUniswapContractDetails;
-    let nameNetwork = "";
-    let multicallContractAddress = "";
+    let customNetwork;
 
     if (this.wallet.chainId === 56) {
 
@@ -117,16 +116,75 @@ export class TradeComponent implements OnDestroy, OnInit {
           pairAddress: "0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73"
         }
       };
-      nameNetwork = "BSC Mainnet";
-      multicallContractAddress = "0x65e9a150e06c84003d15ae6a060fc2b1b393342c";
+
+      customNetwork = {
+        nameNetwork: "BSC Mainnet",
+        multicallContractAddress: "0x65e9a150e06c84003d15ae6a060fc2b1b393342c",
+        nativeCurrency: {
+          name: "BNB Token",
+          symbol: "BNB"
+        },
+        nativeWrappedTokenInfo: {
+          chainId: 97,
+          contractAddress: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+          decimals: 18,
+          symbol: "WBNB",
+          name: "Wrapped BNB"
+        }
+      };
 
     } else if (this.wallet.chainId === 97) {
 
-      providerUrl = '';
-      // cloneUniswapContractDetails =
-      nameNetwork = "BSC Testnet";
-      // multicallContractAddress = ""
+      providerUrl = 'https://data-seed-prebsc-1-s1.binance.org:8545';
+      cloneUniswapContractDetails = {
+        v2Override: {
+          routerAddress: "",
+          factoryAddress: "",
+          pairAddress: ""
+        }
+      };
+      customNetwork = {
+        nameNetwork: "BSC Testnet",
+        multicallContractAddress: "",
+        nativeCurrency: {
+          name: "BNB Token",
+          symbol: "BNB"
+        },
+        nativeWrappedTokenInfo: {
+          chainId: 97,
+          contractAddress: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+          decimals: 18,
+          symbol: "WBNB",
+          name: "Wrapped BNB"
+        }
+      };
 
+    } else if (this.wallet.chainId === 137) {
+
+        providerUrl= 'https://rpc-mainnet.maticvigil.com/',
+        cloneUniswapContractDetails = {
+          v2Override: {
+            routerAddress: "0x1b02da8cb0d097eb8d57a175b88c7d8b47997506",
+            factoryAddress: "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
+            pairAddress: "0xc35dadb65012ec5796536bd9864ed8773abc74c4"
+          }
+        };
+
+        customNetwork = {
+          nameNetwork: "polygon",
+          multicallContractAddress: "0x275617327c958bD06b5D6b871E7f491D76113dd8",
+          nativeCurrency: {
+            name: "Matic Token",
+            symbol: "MATIC"
+          },
+          nativeWrappedTokenInfo: {
+            chainId: 137,
+            contractAddress: "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+            decimals: 18,
+            symbol: "WMATIC",
+            name: "Wrapped Matic"
+          }
+        };
     }
 
 
@@ -143,6 +201,26 @@ export class TradeComponent implements OnDestroy, OnInit {
             { contractAddress: '0x1fd13bb00d80986adc121d5bef287bf2ed5c31af' }, // GRY
             { contractAddress: '0xc05a6f6424e7832bad5438cc6231d6559e833ca8' } // LZCHEEMS
           ]
+        },
+        {
+          chainId: 97,
+          defaultInputToken: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c_ETH', // BNB
+          defaultOutputToken: '0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82', // CAKE
+          supportedTokens: [
+            { contractAddress: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c' }, // BNB
+            { contractAddress: '0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82' }, // CAKE
+            { contractAddress: '0x1fd13bb00d80986adc121d5bef287bf2ed5c31af' }, // GRY
+            { contractAddress: '0xc05a6f6424e7832bad5438cc6231d6559e833ca8' } // LZCHEEMS
+          ]
+        },
+        {
+          chainId: 137,
+          defaultInputToken: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270', // WMATIC
+          defaultOutputToken: '0x13748d548d95d78a3c83fe3f32604b4796cffa23', // KOGECOIN
+          supportedTokens: [
+            // { contractAddress: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270' }, // WMATIC
+            { contractAddress: '0x13748d548d95d78a3c83fe3f32604b4796cffa23' }, // KOGECOIN
+          ]
         }
       ],
       ethereumAddress: this.wallet.address,
@@ -154,25 +232,7 @@ export class TradeComponent implements OnDestroy, OnInit {
         disableMultihops: false,
         uniswapVersions: [ UniswapVersion.v2 ],
         cloneUniswapContractDetails: cloneUniswapContractDetails,
-        customNetwork: {
-          nameNetwork: nameNetwork,
-          // https://github.com/makerdao/multicall
-          multicallContractAddress: multicallContractAddress,
-          // !testnet
-          //   ? "0x41263cba59eb80dc200f3e2544eda4ed6a90e76c"
-          //   : "0xae11C5B5f29A6a25e955F0CB8ddCc416f522AF5C",
-          nativeCurrency: {
-            name: "BNB Token",
-            symbol: "BNB"
-          },
-          nativeWrappedTokenInfo: {
-            chainId: this.wallet.chainId,
-            contractAddress: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-            decimals: 18,
-            symbol: "WBNB",
-            name: "Wrapped BNB"
-          }
-        },
+        customNetwork: customNetwork
       }
       // ,
       // theming: {
@@ -295,122 +355,65 @@ export class TradeComponent implements OnDestroy, OnInit {
 
     if (this.wallet.chainId === 137) {
 
-    // Generate Uniswap pair MATIC
-    // const pair = new UniswapPair({
-    //   fromTokenContractAddress: "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270", // ??? MATIC
-    //   toTokenContractAddress: '0x13748d548d95d78a3c83fe3f32604b4796cffa23', // KOGECOIN
-    //   ethereumAddress: this.wallet.address,
-    //   providerUrl: 'https://rpc-mainnet.maticvigil.com/',
-    //   chainId: 137,
-    //   settings: new UniswapPairSettings({
-    //     slippage: 0.01, // Slippage config
-    //     deadlineMinutes: 5, // 5m max execution deadline
-    //     disableMultihops: false, // Allow multihops
-    //     uniswapVersions: [UniswapVersion.v2], // Only V2
-    //     cloneUniswapContractDetails: {
-    //       v2Override: {
-    //         routerAddress: "0x1b02da8cb0d097eb8d57a175b88c7d8b47997506",
-    //         factoryAddress: "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
-    //         pairAddress: "0xc35dadb65012ec5796536bd9864ed8773abc74c4"
-    //       }
-    //       // v3Override exists here as well!
-    //     },
-    //     customNetwork: {
-    //       nameNetwork: "polygon",
-    //       multicallContractAddress:
-    //         "0x275617327c958bD06b5D6b871E7f491D76113dd8",
-    //       nativeCurrency: {
-    //         name: "Matic Token",
-    //         symbol: "MATIC"
-    //       },
-    //       nativeWrappedTokenInfo: {
-    //         chainId: 137,
-    //         contractAddress: "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
-    //         decimals: 18,
-    //         symbol: "WMATIC",
-    //         name: "Wrapped Matic"
-    //       }
-    //       // ,
-    //       // // can define your base tokens here if any!
-    //       // baseTokens: {
-    //       //   usdt: {
-    //       //     chainId: 137,
-    //       //     contractAddress: 'CONTRACT_ADDRESS',
-    //       //     decimals: 18,
-    //       //     symbol: 'USDT',
-    //       //     name: 'Tether USD',
-    //       //   }
-    //       // // dai...
-    //       // // comp...
-    //       // // usdc...
-    //       // // wbtc...
-    //       // }
-    //     }
-    //   })
-    // });
+      // Generate Uniswap pair MATIC
+      // const pair = new UniswapPair({
+      //   fromTokenContractAddress: "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270", // ??? MATIC
+      //   toTokenContractAddress: '0x13748d548d95d78a3c83fe3f32604b4796cffa23', // KOGECOIN
+      //   ethereumAddress: this.wallet.address,
+      //   providerUrl: 'https://rpc-mainnet.maticvigil.com/',
+      //   chainId: 137,
+      //   settings: new UniswapPairSettings({
+      //     slippage: 0.01, // Slippage config
+      //     deadlineMinutes: 5, // 5m max execution deadline
+      //     disableMultihops: false, // Allow multihops
+      //     uniswapVersions: [UniswapVersion.v2], // Only V2
+      //     cloneUniswapContractDetails: {
+      //       v2Override: {
+      //         routerAddress: "0x1b02da8cb0d097eb8d57a175b88c7d8b47997506",
+      //         factoryAddress: "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
+      //         pairAddress: "0xc35dadb65012ec5796536bd9864ed8773abc74c4"
+      //       }
+      //       // v3Override exists here as well!
+      //     },
+      //     customNetwork: {
+      //       nameNetwork: "polygon",
+      //       multicallContractAddress:
+      //         "0x275617327c958bD06b5D6b871E7f491D76113dd8",
+      //       nativeCurrency: {
+      //         name: "Matic Token",
+      //         symbol: "MATIC"
+      //       },
+      //       nativeWrappedTokenInfo: {
+      //         chainId: 137,
+      //         contractAddress: "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      //         decimals: 18,
+      //         symbol: "WMATIC",
+      //         name: "Wrapped Matic"
+      //       }
+      //       // ,
+      //       // // can define your base tokens here if any!
+      //       // baseTokens: {
+      //       //   usdt: {
+      //       //     chainId: 137,
+      //       //     contractAddress: 'CONTRACT_ADDRESS',
+      //       //     decimals: 18,
+      //       //     symbol: 'USDT',
+      //       //     name: 'Tether USD',
+      //       //   }
+      //       // // dai...
+      //       // // comp...
+      //       // // usdc...
+      //       // // wbtc...
+      //       // }
+      //     }
+      //   })
+      // });
 
-    // const p = await pair.createFactory();
-    // const x = p.trade('10');
-    // console.log('x', x);
-
-
-    this.uniswapDappSharedLogicContext = {
-
-      supportedNetworkTokens: [
-        {
-          chainId: 137,
-          defaultInputToken: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270', // WMATIC
-          defaultOutputToken: '0x13748d548d95d78a3c83fe3f32604b4796cffa23', // KOGECOIN
-          supportedTokens: [
-            // { contractAddress: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270' }, // WMATIC
-            { contractAddress: '0x13748d548d95d78a3c83fe3f32604b4796cffa23' }, // KOGECOIN
-          ]
-        }
-      ],
-      ethereumAddress: this.wallet.address,
-      ethereumProvider: this.web3Service.provider,
-      providerUrl: 'https://rpc-mainnet.maticvigil.com/',
-      settings: new UniswapPairSettings({
-        slippage: 0.01, // Slippage config
-        deadlineMinutes: 5, // 5m max execution deadline
-        disableMultihops: false, // Allow multihops
-        uniswapVersions: [UniswapVersion.v2], // Only V2
-        cloneUniswapContractDetails: {
-          v2Override: {
-            routerAddress: "0x1b02da8cb0d097eb8d57a175b88c7d8b47997506",
-            factoryAddress: "0xc35dadb65012ec5796536bd9864ed8773abc74c4",
-            pairAddress: "0xc35dadb65012ec5796536bd9864ed8773abc74c4"
-          }
-          // v3Override exists here as well!
-        },
-        customNetwork: {
-          nameNetwork: "polygon",
-          multicallContractAddress: "0x275617327c958bD06b5D6b871E7f491D76113dd8",
-          nativeCurrency: {
-            name: "Matic Token",
-            symbol: "MATIC"
-          },
-          nativeWrappedTokenInfo: {
-            chainId: 137,
-            contractAddress: "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
-            decimals: 18,
-            symbol: "WMATIC",
-            name: "Wrapped Matic"
-          }
-        }
-      }),
-      theming: {
-        backgroundColor: 'red',
-        button: { textColor: 'white', backgroundColor: 'blue' },
-        panel: { textColor: 'black', backgroundColor: 'yellow' },
-        textColor: 'orange',
-      }
-    };
+      // const p = await pair.createFactory();
+      // const x = p.trade('10');
+      // console.log('x', x);
 
     }
-
-
-
 
   }
 
